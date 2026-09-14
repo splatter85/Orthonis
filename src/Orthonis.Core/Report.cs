@@ -7,7 +7,7 @@ public static class Report
 {
     public static string Render(CaseSnapshot snapshot, ImmutableArray<Capability> capabilities, DiscoveryPlan? example = null)
     {
-        Contract.Validate(snapshot);
+        SourceData.RequireExportableFixture(snapshot); // Gate the shared exporter, not just CLI dispatch.
         var text = new StringBuilder("# Orthonis investigation report\n\n");
         text.AppendLine("**SYNTHETIC DEMONSTRATION. This is not a scan of your PC.**\n");
         text.AppendLine($"Case: `{snapshot.CaseId}`; revision: {snapshot.Revision}; source: `{snapshot.SourceLabel}`.");

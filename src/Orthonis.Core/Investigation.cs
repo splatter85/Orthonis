@@ -5,10 +5,16 @@ namespace Orthonis.Core;
 public sealed class Investigation
 {
     private readonly Dictionary<string, (Capability Capability, IDiagnosticModule Module)> routes = new(StringComparer.Ordinal);
+    private readonly SourceMode mode;
+    private readonly TimeSpan timeout;
     public ImmutableArray<Capability> Capabilities => routes.Values.Select(v => v.Capability).OrderBy(v => v.Id, StringComparer.Ordinal).ToImmutableArray();
 
-    public Investigation(IEnumerable<IDiagnosticModule> modules)
+    public Investigation(IEnumerable<IDiagnosticModule> modules, SourceMode mode = SourceMode.Synthetic, TimeSpan? timeout = null)
     {
+        Contract.Require(Enum.IsDefined(mode), "Unsupported source mode.");
+        this.mode = mode;
+        this.timeout = timeout ?? TimeSpan.FromSeconds(5);
+        Contract.Require(this.timeout > TimeSpan.Zero && this.timeout <= TimeSpan.FromSeconds(5), "Invalid collection budget.");
         var moduleIds = new HashSet<string>(StringComparer.Ordinal);
         foreach (var module in modules)
         {
@@ -16,7 +22,7 @@ public sealed class Investigation
                 "Invalid or duplicate module.");
             foreach (var cap in module.Capabilities)
             {
-                Contract.Require(cap is not null && Contract.Id(cap.Id) && cap.ModuleId == module.Id && cap.Version == 1 &&
+                Contract.Require(cap is not null && Contract.Id(cap.Id) && cap.ModuleId == module.Id && cap.Version is 1 or 2 &&
                     cap.Description is { Length: > 0 and <= 500 } && (cap.TargetKind is null || Contract.Id(cap.TargetKind)),
                     "Invalid capability contract.");
                 Contract.Require(routes.TryAdd(cap!.Id, (cap, module)), "Duplicate capability.");
@@ -28,6 +34,9 @@ public sealed class Investigation
     public void ValidateRequests(CaseSnapshot snapshot, ImmutableArray<DiscoveryRequest> requests)
     {
         Contract.Validate(snapshot);
+        Contract.Require(SourceData.Mode(snapshot) == mode, "Case and collector source modes differ.");
+        foreach (var module in routes.Values.Select(r => r.Module).OfType<ICaseDiagnosticModule>().Distinct())
+            module.ValidateCase(snapshot);
         Contract.Require(!requests.IsDefaultOrEmpty && requests.Length <= 8, "A plan needs 1 to 8 requests.");
         var unique = new HashSet<DiscoveryRequest>();
         foreach (var request in requests)
@@ -56,18 +65,21 @@ public sealed class Investigation
             cancellationToken.ThrowIfCancellationRequested();
             var route = routes[request.CapabilityId];
             using var budget = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
-            budget.CancelAfter(TimeSpan.FromSeconds(5));
+            budget.CancelAfter(timeout);
             CollectionResult result;
             try
             {
-                result = await route.Module.CollectAsync(request, budget.Token).WaitAsync(budget.Token).ConfigureAwait(false);
+                var collection = route.Module is ICaseDiagnosticModule scoped
+                    ? scoped.CollectAsync(snapshot, request, budget.Token)
+                    : route.Module.CollectAsync(request, budget.Token);
+                result = await collection.WaitAsync(budget.Token).ConfigureAwait(false);
             }
             catch (OperationCanceledException) when (!cancellationToken.IsCancellationRequested)
-            { result = Failure(route.Capability, request, CollectionStatus.TimedOut); }
+            { result = Failure(snapshot, route.Capability, request, CollectionStatus.TimedOut); }
             catch (UnauthorizedAccessException)
-            { result = Failure(route.Capability, request, CollectionStatus.PermissionDenied); }
+            { result = Failure(snapshot, route.Capability, request, CollectionStatus.PermissionDenied); }
             catch (Exception ex) when (ex is not OperationCanceledException and not RefusalException)
-            { result = Failure(route.Capability, request, CollectionStatus.Failed); }
+            { result = Failure(snapshot, route.Capability, request, CollectionStatus.Failed); }
             Contract.Require(!result.Evidence.IsDefaultOrEmpty && !result.Findings.IsDefault &&
                 result.Evidence.All(e => e is not null && e.CapabilityId == request.CapabilityId && e.ModuleId == route.Module.Id &&
                     (request.TargetId is null || request.TargetId == e.TargetId)), "Collector returned mismatched evidence.");
@@ -80,15 +92,19 @@ public sealed class Investigation
         cancellationToken.ThrowIfCancellationRequested();
         var next = snapshot with { Revision = snapshot.Revision + 1, Evidence = observations.ToImmutable(), Findings = findings.ToImmutable() };
         Contract.Validate(next);
+        foreach (var module in routes.Values.Select(r => r.Module).OfType<ICaseDiagnosticModule>().Distinct())
+            module.ValidateCase(next);
         Contract.Require(JsonCodec.Encode(next).Length <= JsonCodec.MaxCaseBytes, "Case storage limit reached.");
         return next;
     }
 
-    private static CollectionResult Failure(Capability capability, DiscoveryRequest request, CollectionStatus status)
+    private static CollectionResult Failure(CaseSnapshot snapshot, Capability capability, DiscoveryRequest request, CollectionStatus status)
     {
+        QueryCoverage? coverage = snapshot.Source is { } source ? new($"query-{Guid.NewGuid():N}", source.Scope,
+            QueryPortion.Collection, CoverageState.NotQueried, 0, 0, 1) : null;
         var e = new Observation($"ev-{Guid.NewGuid():N}", capability.Id, capability.ModuleId,
             request.TargetId ?? capability.ModuleId, capability.TargetKind ?? "collection", DateTimeOffset.UtcNow,
-            status, "collection-outcome.v1", JsonCodec.Element(new { reason = "Collector did not complete; not a healthy result." }));
+            status, "collection-outcome.v1", JsonCodec.Element(new { reason = "Collector did not complete; not a healthy result." }), coverage);
         return new([e], []);
     }
 }

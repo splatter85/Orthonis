@@ -1,11 +1,12 @@
 using System.Collections.Immutable;
 using System.Diagnostics.CodeAnalysis;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Text.RegularExpressions;
 
 namespace Orthonis.Core;
 
-public enum CollectionStatus { Observed, Unavailable, PermissionDenied, Failed, TimedOut }
+public enum CollectionStatus { Observed, Unavailable, PermissionDenied, Failed, TimedOut, Empty, Limited, Unsupported, Stale }
 public enum Severity { Information, Attention }
 
 public sealed class RefusalException(string message) : Exception(message);
@@ -13,13 +14,16 @@ public sealed class RefusalException(string message) : Exception(message);
 public sealed record Capability(string Id, int Version, string ModuleId, string Description, string? TargetKind);
 public sealed record DiscoveryRequest(string CapabilityId, int CapabilityVersion, string? TargetId);
 public sealed record Observation(string Id, string CapabilityId, string ModuleId, string TargetId,
-    string TargetKind, DateTimeOffset ObservedAt, CollectionStatus Status, string DetailSchema, JsonElement Detail);
+    string TargetKind, DateTimeOffset ObservedAt, CollectionStatus Status, string DetailSchema, JsonElement Detail,
+    [property: JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)] QueryCoverage? Coverage = null);
 public sealed record Finding(string Id, Severity Severity, string Summary, ImmutableArray<string> EvidenceIds);
 public sealed record CollectionResult(ImmutableArray<Observation> Evidence, ImmutableArray<Finding> Findings);
 public sealed record CaseSnapshot(int SchemaVersion, string CaseId, int Revision, string SourceLabel,
     DateTimeOffset CreatedAt, ImmutableArray<Observation> Evidence, ImmutableArray<Finding> Findings,
-    ImmutableArray<string> AppliedPlanIds)
+    ImmutableArray<string> AppliedPlanIds,
+    [property: JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)] SourceContext? Source = null)
 {
+    // Version 1 construction and serialized bytes are deliberately unchanged.
     public static CaseSnapshot Create(string sourceLabel) => new(1, $"case-{Guid.NewGuid():N}", 0,
         sourceLabel, DateTimeOffset.UtcNow, [], [], []);
 }
@@ -30,6 +34,14 @@ public interface IDiagnosticModule
     string Id { get; }
     ImmutableArray<Capability> Capabilities { get; }
     Task<CollectionResult> CollectAsync(DiscoveryRequest request, CancellationToken cancellationToken);
+}
+
+// Used only when a real operation needs persisted, case-scoped locators.
+// ValidateCase must be pure: preview and whole-batch admission perform no collection.
+public interface ICaseDiagnosticModule : IDiagnosticModule
+{
+    void ValidateCase(CaseSnapshot snapshot);
+    Task<CollectionResult> CollectAsync(CaseSnapshot snapshot, DiscoveryRequest request, CancellationToken cancellationToken);
 }
 
 public static class Contract
@@ -44,8 +56,8 @@ public static class Contract
 
     public static void Validate(CaseSnapshot value)
     {
-        Require(value.SchemaVersion == 1 && Id(value.CaseId) && value.Revision is >= 0 and <= 128,
-            "Unsupported case identity, revision, or schema.");
+        Require(value.SchemaVersion is 1 or 2 && Id(value.CaseId) && value.Revision is >= 0 and <= 128,
+            "Unsupported case identity, revision, or schema. Version 1 fixtures remain supported without migration.");
         Require(value.SourceLabel is { Length: > 0 and <= 100 }, "Missing source label.");
         Require(value.CreatedAt != default, "Missing creation time.");
         Require(!value.Evidence.IsDefault && value.Evidence.Length <= 512 &&
@@ -70,5 +82,6 @@ public static class Contract
         }
         Require(value.AppliedPlanIds.All(Id) && value.AppliedPlanIds.Distinct(StringComparer.Ordinal).Count() ==
             value.AppliedPlanIds.Length, "Invalid or duplicate applied-plan identity.");
+        SourceData.Validate(value);
     }
 }

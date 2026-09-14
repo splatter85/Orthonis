@@ -34,6 +34,8 @@ jobs:
         run: dotnet run --project tests/Orthonis.Tests --configuration Release --no-build
       - name: CLI round-trip and persistence smoke
         run: python tools/smoke_foundation.py
+      - name: OFC3 controlled round trip and no-dump native Windows read
+        run: python tools/smoke_ofc3.py
       - name: Repository consistency
         run: python tools/check_repository.py
       - name: Repository regression suite

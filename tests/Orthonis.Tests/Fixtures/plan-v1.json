@@ -1,0 +1,1 @@
+{"schemaVersion":1,"kind":"discovery","planId":"plan-legacy","caseId":"case-legacy","basedOnRevision":1,"basedOnSnapshotHash":"05e68fd65a42d69b5b5f3e31f6ca21ed1c763f9c8b648f69f857f9cadc99d5b7","hypothesis":"Check the existing fixture target.","evidenceRefs":["ev-legacy"],"requests":[{"capabilityId":"startup.inspect","capabilityVersion":1,"targetId":"startup-002"}]}
