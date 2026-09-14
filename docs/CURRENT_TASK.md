@@ -2,42 +2,20 @@
 
 Document ID: `orthonis.doc.current-task`.
 
-## Selected implementation: OFC3
+## State: idle after OFC3
 
-```tokenslang-work
-{
-  "profile": "eutonos.tokenslang.work.v1",
-  "work_id": "orthonis.work.ofc3",
-  "goal": "Implement the live-data-aware CLI and bounded read-only Windows Run-key Startup slice, preserving the synthetic foundation.",
-  "status": "selected",
-  "required": [
-    {"scope_id":"orthonis.repo","namespace":"orthonis.native","resource_id":"orthonis.doc.ofc"},
-    {"scope_id":"orthonis.repo","namespace":"orthonis.native","resource_id":"orthonis.doc.workflow"},
-    {"scope_id":"orthonis.repo","namespace":"orthonis.native","resource_id":"orthonis.doc.architecture"},
-    {"scope_id":"orthonis.repo","namespace":"orthonis.native","resource_id":"orthonis.doc.health"},
-    {"scope_id":"orthonis.repo","namespace":"orthonis.native","resource_id":"orthonis.doc.foundation-guide"}
-  ]
-}
-```
+OFC3 (`orthonis.work.ofc3`) is complete at its selected repository and hosted-Windows boundary. There is no selected implementation slice now. OFC4 and OFC5 remain planned campaign entries only; neither may begin without a new owner selection here.
 
-Owner assignment: execute [OFC3](campaigns/OFC_FOUNDATION.md#ofc3-live-data-aware-cli-and-bounded-windows-startup-collection) only, with source, tests, affected documentation and normal publication to `codex/ofc-foundation`, updating draft PR #1. No merge, deployment, UI, repair, registry writes, target execution, elevation, provider calls, live export, paid runners or account changes. OFC4 and OFC5 remain unselected.
+The continuation baseline was `9c769a676836184b09fa5881cc56910bb1120a7a` on `codex/ofc-foundation`, with `fa2b5dc567213043ac7871a43c278c598ff81446` as the prior verified implementation baseline. The first OFC3 implementation was published as `dedf2d16031bb464c917af3e9d1aa8da445cc02f`. Review then tightened `System.Security.SecurityException` handling so live permission failures retain the explicit `PermissionDenied` outcome in `15cb3184325425c5e438ee73ab358377f81a2364`.
 
-## Baseline and scope
+## Completed boundary
 
-Resolved remote baseline on 2026-09-14: `9c769a676836184b09fa5881cc56910bb1120a7a`, matching the supplied handoff. Previous implementation baseline: `fa2b5dc567213043ac7871a43c278c598ff81446`. Main is not the application starting point. Preserve concurrent changes; use expected blob versions and nonforced publication.
+OFC3 adds an explicit `start-windows` path for the current user's and local machine's `Software\Microsoft\Windows\CurrentVersion\Run` keys in one native registry view. It records schema-2 source context and bounded coverage, persists opaque case-scoped targets, revalidates the original registration before and after conservative local executable inspection, preserves drift/removal as stale or unavailable, and never executes a target. RunOnce, Startup folders, Task Scheduler, services, drivers, shell extensions, alternate registry views, repairs, elevation and Reliability live collection remain outside this slice.
 
-Scope: explicit validated live source/coverage semantics; bounded current-user and local-machine Run-key collection with declared registry views; persistent opaque case-scoped targets and registration revalidation; conservative local file-presence inspection; gated summaries and blocked live AI export; focused compatibility, adverse-case, privacy and cross-process tests. Preserve immutable evidence, strict import, whole-batch validation, approval/replay, storage refusal boundaries and the synthetic Startup/Reliability loop.
+Live case files are private local working data. Default live output is a bounded summary using opaque IDs and coverage outcomes; `report` and `example-plan` reject live cases. `local-plan` remains a deliberately local/private discovery-plan path with preview and explicit approval. Synthetic Startup/Reliability reports and their manual AI return loop remain unchanged and exportable.
 
-Acceptance: actual full build, expanded executable C# suite, fixture CLI smoke and Python repository checks on available hosts; injected Windows-source tests; safe no-dump Windows adapter smoke if a Windows runner is available. Distinguish portable checks, Windows-runner reads and owner-PC acceptance. Record any missing evidence instead of substituting fixture success.
+The authoring environment did not provide a local .NET SDK, so no local C# build is claimed. GitHub Actions is the execution owner for the published C# result. Run `34878077559` passed the first OFC3 implementation on `ubuntu-24.04` and `windows-2022`, including the no-dump Windows Run-key read. Permission-outcome follow-up run `34885157156` also passed both jobs (`104113872222` Windows and `104113872533` Ubuntu), including build, the expanded executable suite, foundation and OFC3 smokes, repository consistency and Python regressions. Owner-PC acceptance has not been run and is not substituted by a hosted runner.
 
-## Execution checkpoint and restart point
+## Restart point
 
-Status: source inspection and baseline verification in progress; implementation not yet published. Required owner documents and core/CLI/Startup paths have been read at the pinned baseline. This authoring container has no `dotnet` executable; `dotnet --info` returned command not found. Direct `git clone` failed DNS resolution, leaving no local Git checkout to inspect. GitHub connector reads/writes work. No claim about an unobserved owner-PC working tree is made. Use the existing bounded public PR workflow for actual C# execution; inspect its results, not just historical success prose.
-
-Next action: finish relevant source/test/build inspection, verify the unchanged foundation through available CI, then implement the OFC3 boundary and adapter. Publish against the inspected parent and read back the exact result. Update this checkpoint and the campaign at meaningful boundaries and closeout.
-
-## Preserved foundation history
-
-OFC1/OFC2 are completed at their fixture-backed construction/execution boundaries: 53 C# checks at the implementation baseline, the 24-test Python repository suite, and separate-process CLI round-trip smoke. Historical results, exact source views and unrun limits remain in the [campaign](campaigns/OFC_FOUNDATION.md). Run `34871838719` checked the implementation baseline; run `34873536758` checked the later documentation amendment. Neither establishes live Windows Startup collection or owner-PC acceptance.
-
-Keep EUTONOS file-based, preserve OED1 history and stable IDs, and use this as the sole task board. Private upstream EUTONOS access is not required.
+Begin future work by reading [OFC](campaigns/OFC_FOUNDATION.md), [Architecture](ARCHITECTURE.md), [Workflow](WORKFLOW.md), [Project Health](PROJECT_HEALTH.md) and [Foundation Guide](FOUNDATION_GUIDE.md), then write exactly one selected `tokenslang-work` block here before implementation. A reasonable next candidate is OFC4, bounded Windows Reliability collection, but it is not selected by this checkpoint. Do not merge PR #1, change `main`, start UI work, enable repairs or open live AI/export until separately authorized.

@@ -10,9 +10,13 @@ Orthonis is a diagnostics, maintenance, and evidence-based repair project rather
 
 ## Present capabilities
 
-The OFC foundation implements a C#/.NET 10 command-line application with a portable case/evidence core, built-in fixture-backed Startup and Reliability modules, bounded strict JSON, local versioned case storage, Markdown reports, and a manual discovery-plan preview/approval/follow-up loop. [Foundation guide](FOUNDATION_GUIDE.md) owns usage; [OFC campaign](campaigns/OFC_FOUNDATION.md) owns the actual execution evidence. The code is published on the task branch in review PR #1, not a released application.
+The OFC foundation is a C#/.NET 10 command-line application with a portable case/evidence core, built-in synthetic Startup and Reliability modules, bounded strict JSON, local versioned case storage, Markdown reports, and a manual discovery-plan preview/approval/follow-up loop. OFC3 also provides an explicit opt-in live Windows Startup source for a deliberately small subset: HKCU and HKLM `Software\Microsoft\Windows\CurrentVersion\Run` in the native registry view, bounded to 32 values per key.
 
-All collection currently uses synthetic scenarios. There is no live Windows collector, desktop UI, repair executor, installer, tested real-data redactor, or model-provider integration. The local case files are real; the system observations are deliberately simulated. [EUTONOS adoption](EUTONOS_ADOPTION.md) retains the historical development-workflow setup, and [Current Task](CURRENT_TASK.md) selects live work.
+Live Startup cases record source scope and query coverage, use opaque case-scoped target IDs, re-read the selected registration before inspecting it, and conservatively inspect only supported local executable paths without execution. Changed or removed registrations become stale/unavailable rather than being remapped. Enablement is unknown; a Run registration is not proof of execution, boot delay, malware, health or a required repair.
+
+Live cases remain private local working data. The default live summary excludes raw registry names, command lines and private paths, and the synthetic `report`/`example-plan` export path is blocked for live cases. The local plan/approval loop can request supported follow-up reads without enabling cloud sharing. Synthetic reports remain available for the manual AI exchange.
+
+There is still no desktop UI, repair executor, installer, live Reliability collector, tested minimized real-data AI exporter, or model-provider integration. The code is published on `codex/ofc-foundation` in draft PR #1, not a released or merged application. [Foundation Guide](FOUNDATION_GUIDE.md) owns commands and [OFC](campaigns/OFC_FOUNDATION.md) owns execution evidence.
 
 ## Intended product capabilities
 
@@ -23,24 +27,16 @@ All collection currently uses synthetic scenarios. There is no live Windows coll
 | Repair and verify | Supported actions with prerequisites, clear approvals, execution records, operation-specific recovery, and comparison after a change. |
 | Explain | Plain-language findings separating observed facts, hypotheses, unavailable checks, and recommended measurements. |
 
-Storage growth, Windows integrity, crash analysis, driver history, and software conflicts describe future scope. Fixture findings are not a diagnosis of a current PC. A missing registry or executable reference alone does not justify deletion or establish performance impact.
+Storage growth, Windows integrity, crash analysis, driver history, and software conflicts describe future scope. A missing registry or executable reference alone does not justify deletion or establish performance impact.
 
 ## Optional AI
 
-The first implemented exchange mechanism exports a report with available capabilities and accepts a structured discovery proposal after local validation and approval. The transport is manual copying of text/JSON, not a live agent or an API connection. A deterministic example and smoke test prove the protocol path; they do not establish that a real model chose a useful diagnosis.
+The implemented exchange mechanism for synthetic cases exports a report with available capabilities and accepts a structured discovery proposal after local validation and approval. The transport is manual copying of text/JSON, not a live agent or API connection. Live Windows cases deliberately do not use that unrestricted exporter.
 
-Live Codex, API-provider, direct-chat-tool, and local-model connections remain optional future adapters. Their authentication, current provider policies, availability, costs, and tool permissions must be verified at implementation. Do not promise unlimited/free usage or extract browser cookies/private authentication stores.
-
-The product should remain useful without AI. Losing model access should pause AI assistance rather than incur a hidden charge or bypass local controls. Development-time EUTONOS and product-time diagnostic AI remain separate.
+Future Codex, API-provider, direct-chat-tool, and local-model connections remain optional adapters. Their authentication, current provider policies, costs, permissions and privacy projection must be verified at implementation. Orthonis should remain useful without AI; losing model access must not trigger hidden paid usage or bypass local controls.
 
 ## Development direction
 
-Use the small built-in modular application described in [Architecture](ARCHITECTURE.md). The selected foundation toolchain is recorded in `global.json` and the build properties. The Windows desktop UI toolkit and supported consumer Windows versions remain undecided. Add real collectors behind source interfaces, then verify on Windows before enabling real-data exports or repairs.
+Keep the small built-in modular architecture and CLI-first policy described in [Architecture](ARCHITECTURE.md). OFC3 established one real read-only Windows source boundary. A possible next campaign slice is OFC4 for bounded Windows Reliability collection, followed by OFC5 for cross-module Windows/private-data validation, but no later slice is selected automatically.
 
-The first foundation milestone proves the two-module case/report/discovery loop. The next checkpoint is real Windows read-only collection. A broad launch campaign should be refined from that evidence rather than treating this entire intended capability list as admitted implementation.
-
-## Success measures and open decisions
-
-Evaluate diagnostic correctness, false positives, evidence quality, unnecessary changes avoided, meaningful verification, recovery, collection overhead, and measured AI usage where available. A healthy computer may need no repair. Exact performance attribution must come from measurements.
-
-Distribution/signing, software licensing, desktop UX, supported Windows versions, real-data export policy, and privileged-operation threat modeling remain open. Accounts, cloud storage, telemetry, monetization, and an elevated agent are not foundation requirements.
+Distribution/signing, software licensing, desktop UX, supported consumer Windows versions, live-data export policy and privileged-operation threat modeling remain open decisions.

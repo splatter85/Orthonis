@@ -6,32 +6,37 @@ Orthonis is a Windows diagnostics, maintenance, and controlled-repair project. I
 
 ## Current working milestone
 
-The OFC foundation provides a **runnable C#/.NET command-line demonstration using synthetic data**: one case/evidence core, built-in Startup and Reliability modules, local case persistence, understandable reports, and a validated manual discovery-plan round trip. It does not scan or repair your PC. There is no desktop interface, live AI connection, installer, real-data redactor, or Windows collector yet.
+The OFC foundation is a runnable C#/.NET CLI with a portable case/evidence core, synthetic Startup and Reliability modules, local case persistence, understandable reports, and a validated manual discovery-plan round trip. OFC3 adds an explicit opt-in, read-only Windows Startup source for a bounded native-view HKCU/HKLM `Run` subset plus conservative target revalidation and local executable-presence inspection.
 
-The [foundation campaign](docs/campaigns/OFC_FOUNDATION.md) records exact build/test evidence and the remaining Windows pilot. The [foundation guide](docs/FOUNDATION_GUIDE.md) explains commands, report exchange, and limits. Work is on `codex/ofc-foundation` in review PR #1; publication on that branch does not mean it is merged into `main`.
+The Windows path does **not** cover all startup mechanisms and never executes, disables or deletes a startup target. Live case data stays local by default: the ordinary synthetic report/example exporter rejects live cases, while live summaries expose bounded outcomes and opaque IDs instead of raw registry command lines or private paths. There is still no desktop UI, installer, repair executor, live Reliability collector, live AI connection or general real-data exporter.
 
-## Build and try the synthetic workflow
+Work remains on `codex/ofc-foundation` in draft PR #1; publication there does not mean it is merged into `main`. The [foundation campaign](docs/campaigns/OFC_FOUNDATION.md) records exact slice/test evidence and the [foundation guide](docs/FOUNDATION_GUIDE.md) owns commands and privacy limits.
 
-Use the .NET SDK selected by [global.json](global.json). Python 3.12 or later is needed for the smoke and repository checks. Run from the repository root:
+## Build and verify
+
+Use the .NET SDK selected by [global.json](global.json) and Python 3.12 or later:
 
 ```sh
 dotnet build Orthonis.slnx --configuration Release
 dotnet run --project tests/Orthonis.Tests --configuration Release --no-build
 python tools/smoke_foundation.py
+python tools/smoke_ofc3.py
+python tools/check_repository.py
+python -m unittest discover -s tests -v
 ```
 
-The smoke command uses temporary synthetic cases and checks preview, approval, stale/replay refusal, and persistence through separate CLI processes. To keep a demonstration case:
+To try only synthetic data:
 
 ```sh
 dotnet run --project src/Orthonis.Cli --configuration Release --no-build -- start .local/demo missing
 dotnet run --project src/Orthonis.Cli --configuration Release --no-build -- report .local/demo
 ```
 
-No administrator permission is needed for the fixture demonstration. Use a new directory for another case; `start` does not overwrite a saved case. Read the [guide](docs/FOUNDATION_GUIDE.md) before exchanging a plan.
+On a supported Windows host, `start-windows <case-directory>` is the explicit live opt-in. Read the [foundation guide](docs/FOUNDATION_GUIDE.md) before using it; live case files are private working data and `report`/`example-plan` are deliberately blocked for them.
 
 ## Start here for development
 
-Agents begin with [AGENTS.md](AGENTS.md), then [Current Task](docs/CURRENT_TASK.md). Only Current Task selects work; a roadmap, memory, or experiment does not authorize execution.
+Agents begin with [AGENTS.md](AGENTS.md), then [Current Task](docs/CURRENT_TASK.md). Only Current Task selects work; a roadmap, campaign, memory or experiment does not authorize execution.
 
 | Need | Owner |
 | --- | --- |
@@ -47,4 +52,4 @@ Agents begin with [AGENTS.md](AGENTS.md), then [Current Task](docs/CURRENT_TASK.
 
 [eutonos.read.json](eutonos.read.json) is the stable-ID/owner catalog. EUTONOS is a repository-files development workflow, not an application dependency or installed runtime.
 
-This public repository contains synthetic fixtures and reviewed public-safe documentation. Do not commit real diagnostic reports, credentials, private transcripts, or runtime state. The foundation includes no software license; distribution/licensing decisions remain open.
+This public repository contains synthetic fixtures, source and public-safe documentation. Do not commit live case files, real diagnostic reports, credentials, private transcripts or runtime state. The foundation includes no software license; distribution/licensing decisions remain open.

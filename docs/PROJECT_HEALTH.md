@@ -2,40 +2,42 @@
 
 Document ID: `orthonis.doc.health`.
 
-## Foundation build and executable checks
+## Build and executable checks
 
 Use the SDK selected in [global.json](../global.json) and Python 3.12 or later. From the repository root:
 
 ```sh
+dotnet --info
 dotnet build Orthonis.slnx --configuration Release
 dotnet run --project tests/Orthonis.Tests --configuration Release --no-build
 python tools/smoke_foundation.py
+python tools/smoke_ofc3.py
 python tools/check_repository.py
 python -m unittest discover -s tests -v
 ```
 
-The C# suite is a small executable regression harness with a failing exit code on any failed check. It is intentionally invoked by `dotnet run`, not discovered by `dotnet test`. [Core/module/storage regressions](../tests/Orthonis.Tests/Program.cs) and [plan regressions](../tests/Orthonis.Tests/PlanChecks.cs) own assertions. The [CLI smoke](../tools/smoke_foundation.py) launches separate processes against temporary synthetic cases and checks preview, refusal, approval, replay, unchanged case bytes and fresh-process reload.
+The C# suite is an executable harness, not a `dotnet test` discovery project. `Ofc3Runner` first executes all 53 retained foundation checks, then the OFC3 source, permission, privacy, compatibility and CLI regressions. Controlled live tests use injected registry/probe seams and synthetic privacy sentinels; they do not manufacture autorun entries.
 
-The [build configuration](../Directory.Build.props) treats compiler/analyzer warnings as errors. .NET library APIs are used without external package dependencies. The [solution](../Orthonis.slnx) builds Core, Modules, CLI and the regression harness together. CLI usage is in [Foundation guide](FOUNDATION_GUIDE.md).
+`smoke_foundation.py` preserves the synthetic separate-process report/plan path. `smoke_ofc3.py` exercises a fresh-process schema-2 create/reload/preview/approval/contradictory-inspection/reload path with controlled sources, verifies unchanged bytes on refusal/replay, verifies live report/example export gating, and on Windows also performs the bounded no-dump Run-key read plus native local executable attribute probes.
+
+The solution now builds Core, Modules, Windows, CLI and the regression harness. Nullable checking, analyzers, warnings-as-errors and deterministic build settings remain enabled. `NuGet.Config` continues to clear external package feeds; OFC3 added no third-party package or desktop framework.
 
 ## Repository consistency checks
 
-The independently authored Python checker validates this deployment's explicit catalog and Markdown owners: unique IDs, case-distinct source paths, owner routing, selected work shape, exact scoped references, local links/anchors and exclusions. It does not fetch external links, repair files, certify all TokenSlang profiles, scan secrets, or execute a native EUTONOS runtime. Its tests include malformed, missing, ambiguous, escaping, symlink and stale-reference cases.
-
-An alternate source root can be checked with `python tools/check_repository.py --root /path/to/Orthonis`. The source catalog is a selected useful inventory, not a claim that every source line is semantically mapped. Build and application behavior require their separate tests.
+`python tools/check_repository.py` validates the explicit EUTONOS file catalog, stable IDs, single task owner, source paths, local links/anchors and exclusions. Its regression suite tests malformed/missing/ambiguous references, escaping, symlinks and stale catalog behavior. It is repository-structure evidence, not native EUTONOS runtime certification or application behavior evidence.
 
 ## Hosted checks and evidence owners
 
-[Foundation CI](../.github/workflows/foundation.yml) runs for pull requests into `main`, only while the repository is public, on standard `ubuntu-24.04` and `windows-2022` runners. Each job has a ten-minute bound and read-only repository permissions. Actions are pinned; checkout credentials are not persisted. The workflow uploads no artifacts or caches and makes no model calls. Changing visibility or using billable resources needs a separate decision.
+[Foundation CI](../.github/workflows/foundation.yml) runs pull-request commits on standard `ubuntu-24.04` and `windows-2022` runners with read-only repository permissions, pinned actions, no persisted checkout credentials, no caches/artifact uploads and no model calls.
 
-[OFC campaign](campaigns/OFC_FOUNDATION.md) owns observed application results, exact source views, run IDs and unrun boundaries. [EUTONOS adoption](EUTONOS_ADOPTION.md) preserves OED1's earlier file-mode setup evidence; it is not current product acceptance. GitHub job logs are the direct command/result evidence. A self-written result document is not a substitute for inspecting them.
+The first OFC3 implementation `dedf2d16031bb464c917af3e9d1aa8da445cc02f` passed run `34878077559` on both runners. The Windows job's OFC3 smoke performed the actual bounded native HKCU/HKLM Run read and local existing/missing executable attribute probes while logging only nonidentifying counts/pass-fail data.
 
-Before publication review paths, source diff and actual authority. After publication fetch the exact commit/tree and relevant owners. PR CI may test a generated merge commit; retain that identity or compare its tree to the branch head rather than assuming identical bytes. The containing Git commit identifies an evidence record's version; do not invent a future self-referential commit.
+The permission-outcome follow-up `15cb3184325425c5e438ee73ab358377f81a2364` passed run `34885157156`. Windows job `104113872222` and Ubuntu job `104113872533` each passed build, executable regressions, foundation CLI smoke, OFC3 smoke, repository consistency and repository regressions. The Windows OFC3 smoke again passed the bounded native read. The closeout documentation's containing commit receives its own PR run.
+
+[OFC](campaigns/OFC_FOUNDATION.md) owns slice results and unrun boundaries. A written result is not a substitute for the actual job. PR CI may test a generated merge commit; retain the branch SHA and run/job identities rather than calling that a merge into `main`.
 
 ## Acceptance limits
 
-C# build/regression and CLI success establish only tested synthetic behavior on the recorded hosts. They do not establish Windows registry/event-log collector accuracy, actual PC health, UI quality, installation, repair safety, provider authentication, real-data redaction, independent model comprehension, or AI savings.
+The Windows runner read proves only the implemented native-view bounded Run-key adapter and its tested runner environment. It does not establish owner-PC acceptance, comprehensive Startup coverage, live Reliability accuracy, consumer Windows support, PC health, UI quality, installer behavior, repairs, privileged safety or a tested minimized AI-export projection. Empty/incomplete results never certify a healthy PC.
 
-Storage failure injection covers failure before file replacement, not sudden power loss or every filesystem race. The case store is for cooperating local writers, not hostile administrators. Inputs are bounded and strict, but that is not a complete hostile-code sandbox or prompt-injection solution.
-
-The real Windows read-only pilot remains owed. Record its OS/build, permissions, source coverage and actual collector checks separately; do not treat fixture results as real observations. Real-data export and privileged repairs require their own review and tests before they are enabled.
+The authoring environment used for OFC3 had no `dotnet` executable, so no local C# build is claimed. Owner-PC acceptance remains unrun. Live case/export privacy is fail-closed by blocking the unrestricted exporter; it is not yet evidence that a future minimized export policy is safe.

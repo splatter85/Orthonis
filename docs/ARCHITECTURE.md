@@ -2,65 +2,56 @@
 
 Document ID: `orthonis.doc.architecture`.
 
-Status: OFC implements the fixture-backed read-only foundation below. Real Windows collection, real-data export controls, UI and repair boundaries remain requirements for later work, not shipped security claims.
+Status: OFC1/OFC2 provide the fixture-backed case/report/discovery foundation. OFC3 adds a bounded read-only Windows Startup adapter and live-data privacy boundary. Live Reliability collection, general real-data export, UI and repairs remain later work rather than shipped security claims.
 
 ## CLI-first development decision
 
-Owner decision, 2026-09-14: keep Orthonis command-line-first while its useful capabilities and workflows take shape. Do not build a desktop shell, dashboard, web UI, TUI framework, UI mockups, or choose a UI toolkit during the remaining OFC slices. Help text, progress, readable terminal output, explicit approval, and tested exit codes are application functionality, not a reason to introduce a graphical framework.
+Owner decision, 2026-09-14: keep Orthonis command-line-first while useful capabilities and workflows take shape. Do not build a desktop shell, dashboard, web UI, TUI framework, UI mockups, or choose a UI toolkit during the remaining OFC slices. Help text, readable terminal output, cancellation, explicit approval and tested exit behavior are application functionality, not a reason to introduce a graphical framework.
 
-Keep domain operations callable without console I/O. The CLI is one host, not the owner of collection, analysis, export policy, or authorization logic. Extract a small application service only when concrete reuse or complexity requires it; do not turn UI readiness into an empty framework or platform rewrite. A later UI must reuse the tested operations and be selected explicitly after the owner reviews real CLI workflows. Completing OFC does not automatically start UI development.
-
-The [remaining campaign slices](campaigns/OFC_FOUNDATION.md#cli-first-continuation-plan) add live-data safeguards and bounded Windows adapters before broader features. This is a planned direction, not a claim that the current fixture sources already inspect Windows.
+The CLI is one host, not the owner of collection, interpretation, privacy policy or authorization. `CaseOperations` exposes application operations independently of console parsing; future UI code must reuse those operations rather than reimplementing policy.
 
 ## Implemented component boundary
 
-The product is a small modular desktop-application foundation, currently hosted through a CLI. Built-in modules are compiled and shipped together; there is no dynamic plugin loader or module marketplace.
-
 | Component | Current responsibility |
 | --- | --- |
-| `Orthonis.Core` | Immutable cases/evidence/findings, explicit capabilities, bounded collection coordination, strict JSON, report rendering, discovery-plan validation and execution orchestration. |
-| `Orthonis.Modules` | Startup and Reliability capability implementations; typed details, separate analysis functions, source interfaces and synthetic sources. References Core only. |
-| `Orthonis.Cli` | Explicit component composition, commands, approval input, local case storage and console output. References Modules and its transitive Core dependency. |
-| `Orthonis.Tests` | Executable behavioral regressions, including persistence fault injection; no live Windows data. |
+| `Orthonis.Core` | Immutable cases/evidence/findings, explicit capabilities, schema-1 fixture and schema-2 live source/coverage contracts, bounded collection coordination, strict JSON, synthetic report rendering and discovery-plan validation/execution. |
+| `Orthonis.Modules` | Portable synthetic Startup and Reliability modules. References Core only. |
+| `Orthonis.Windows` | OFC3 Windows-only Run-key source, live Startup module, conservative command resolution and local executable attribute probe. No registry write or target execution API. |
+| `Orthonis.Cli` | Explicit composition, reusable case operations, commands, local approval, local case storage and console output/export gating. |
+| `Orthonis.Tests` | Foundation regressions plus injected OFC3 adverse cases, privacy sentinels, fresh-process live-case tests and native no-dump smoke entry points. |
 
-The [contracts](../src/Orthonis.Core/Contracts.cs) and [Investigation coordinator](../src/Orthonis.Core/Investigation.cs) are shared. Adding [Reliability](../src/Orthonis.Modules/Reliability.cs) did not require modifying the existing [Startup implementation](../src/Orthonis.Modules/Startup.cs) or collection coordinator. The host explicitly registers known modules instead of discovering arbitrary assemblies. Module-specific source retrieval and interpretation stay outside the host.
+Core does not call Windows APIs, filesystem storage, UI controls or model SDKs. Windows collection is isolated behind reviewed interfaces; there is no dynamic plugin loader, separate feature database, Windows service or privileged executor.
 
-Core must not call Windows APIs, filesystem storage, UI controls, or model SDKs. Keep source adapters behind interfaces and share the case/report/approval mechanisms. Avoid separate feature databases and direct cross-module call chains. A future UI invokes application operations rather than reimplementing policy.
+## Evidence, source context and freshness
 
-## Evidence and findings
+Schema-1 synthetic cases remain byte-compatible and do not gain live semantics implicitly. Schema-2 Windows Startup cases require a validated source mode/scope plus case-salted machine and user bindings. Every live observation carries a bounded query coverage record that distinguishes complete, partial and not-queried outcomes and retains observed, empty, denied, failed, timed-out, limited, unsupported and stale states.
 
-An observation retains its identity, originating module/capability, target identity and kind, observation time, collection outcome, detail schema, and typed serialized details. A finding references actual evidence. Cases and findings are immutable snapshots; collection creates the next revision rather than mutating the input case.
+Live Startup inventory uses opaque case-scoped target IDs backed by private persisted locators. Target admission from historical evidence is only the first gate: the Windows module re-establishes the selected machine/user/view context, rereads the original registration, and refuses silent remapping on drift/removal/substitution. Supported executable inspection rereads the registration again after the filesystem observation so concurrent registration change supersedes a present/missing result.
 
-The current fixtures use observation time. Windows adapters must additionally represent actual event time and bounded query coverage where needed; do not infer event time from when a scan ran. Missing, failed, denied, timed-out, unsupported, and healthy are different outcomes. A coincident update is not proven causation, and two similar applications are not a demonstrated conflict.
+Findings remain historical immutable evidence. Live summary logic distinguishes a current missing-target attention finding from a later contradictory observation so an older finding is not presented as the current state.
 
-The report retains all case evidence, including repeated observations. Repeated hang summaries are not new crashes, and an old missing-target finding does not prove the latest state. Richer current-versus-historical finding reconciliation is future work before presenting a live health dashboard. No historical baseline is invented when the application was not recording it.
+## Conservative Windows Startup boundary
 
-## Discovery and repair proposals
+OFC3 reads only current-user and local-machine `Software\Microsoft\Windows\CurrentVersion\Run` in the process-native 32- or 64-bit registry view, at most 32 retained values per key. It excludes the alternate view, RunOnce, Startup folders, scheduled tasks, services, drivers and shell extensions. Unknown enablement stays unknown.
 
-The AI returns a work order, not executable code. [DiscoveryPlans](../src/Orthonis.Core/DiscoveryPlans.cs) binds version 1 discovery proposals to the case/revision/snapshot hash and existing evidence. The application advertises actual capabilities; targeted requests resolve known local IDs rather than model-provided paths. The entire batch is validated before a collector call. Preview performs no collection, and execution requires explicit local approval after revalidation.
+Command parsing supports only a narrow absolute local-drive `.exe` form. Environment-variable expansion, ambiguous quoting, launchers, shell/script/DLL/URL forms, relative/search-path targets, UNC paths and device paths are unsupported rather than guessed. `LocalExecutableProbe` opens local filesystem components for attributes only, rejects nonstandard drive mappings and reparse traversal, and distinguishes explicit missing statuses from permission/error outcomes. It never loads or executes the target.
 
-[JsonCodec](../src/Orthonis.Core/JsonCodec.cs) rejects unknown fields/versions, duplicate JSON keys, missing required fields, malformed/truncated input, excessive size/depth, and non-finite numbers. Unknown capabilities, invalid targets, mismatched snapshot preconditions, duplicate requests and applied-plan replay fail closed. Bounds are in source and the [foundation guide](FOUNDATION_GUIDE.md). There is no generic elevated shell or repair command in this protocol.
+Filesystem and registry observations are still races, not atomic snapshots. A supported result is evidence at observation time, not proof of future execution or causation.
 
-Current target admission requires matching observed module/kind/identity in the case. It is not proof that a real Windows target still exists. Actual Windows operations must re-establish relevant live target preconditions. A digest identifies selected bytes; it is not authorization, authentication, or proof of a diagnosis. Copying a supported schema does not confer trust.
+## Discovery and export policy
 
-## Execution, recovery, and verification
+The AI returns a bounded discovery work order, not code. Whole-plan validation occurs before any collector call; preview performs no collection; execution requires explicit local approval after revision/hash revalidation. Unknown capabilities/targets/versions, duplicate requests, stale plans and replays fail closed.
 
-The coordinator processes a bounded request list with cooperative cancellation and a per-collector timeout. Failure/denial/timeout produce explicit generic outcomes without copying exception details into reports. A malformed collector result is refused, not quietly accepted. In-process modules remain trusted code; a timeout or interface is not a sandbox and does not guarantee termination of a noncooperating operation.
+Synthetic cases retain the existing Markdown report/manual AI exchange. Live cases cannot use `report` or `example-plan`; `SourceData.RequireExportableFixture` blocks that path in Core as well as the CLI. Live default output is a local/private bounded summary using opaque IDs and coverage. `local-plan` is deliberately labeled local/private and does not mean the case has been sanitized for sharing.
 
-The [case store](../src/Orthonis.Cli/CaseStore.cs) uses one cooperating writer lock, sequential revision checking and same-directory temporary-file replacement. Regression tests inject a failure before replacement and establish a readable unchanged prior case. This is not universal power-loss durability, authenticated storage, hostile-process isolation, or a guarantee of race-proof reparse confinement. Raw case files are local working data, not signed evidence.
+## Execution, recovery and privilege
 
-For each future repair, specify applicability, exact prerequisites/effects, approval, expected observation, interruption handling, and realistic recovery. Journal uncertain outcomes. Windows changes are not universally atomic or reversible. Prefer one justified intervention and comparison over unrelated optimizations; no improvement is a useful negative result.
+Collection is bounded and cooperatively cancellable. Timeouts, permissions and failures produce explicit generic outcomes without exporting adapter exception details. `UnauthorizedAccessException` and `SecurityException` are treated as permission-denied rather than generic health failures. In-process modules remain trusted code; cancellation is not a sandbox.
 
-Broad registry deletion, firmware flashing, boot-configuration changes, and disabling security protections remain outside routine AI-directed maintenance. Consequential repair tests must start in a disposable Windows environment, not an everyday PC.
+The case store uses one cooperating-writer lock, revision preconditions and same-directory replacement; failure injection proves only its defined before-replacement boundary. Raw case files are private local working data, not authenticated or signed evidence.
 
-## Privacy and privilege
+The normal host does not elevate. OFC3 imports no registry write API and exposes no repair, shell, launcher or arbitrary-command escape hatch. Any future consequential repair needs a separate threat model, prerequisites, approval and recovery contract.
 
-The present application only constructs synthetic sources. Its reports are not a validated real-data redaction system; the source label is not proof that manually edited case content is safe to export. Real collection must not silently reuse unrestricted fixture exports. Keep evidence local by default, minimize and preview exports, and add tested filtering/aliasing before live personal data leaves the machine. Memory dumps, full logs, unrestricted command lines and secrets must not be automatically exported.
+## Development evidence
 
-Treat logs, reports, and AI output as untrusted data. The normal host/model process should not run as administrator. A future privileged helper exposes only authenticated, validated, narrowly scoped operations and rechecks requests itself. Other agent tools must not bypass that boundary. Privilege requirements belong to each operation; read-only does not imply no elevation on every Windows source.
-
-## Development and execution evidence
-
-GitHub connector access establishes selected committed source and actual writes/readback, not the state of a PC. Container checks establish only commands actually run there. CI establishes behavior on its recorded runner/source view. A real Windows pilot establishes only its tested machine/build/permissions/scenarios. Synthetic sources do not establish Windows collector accuracy.
-
-EUTONOS supports development continuity through readable repository owners. It is not a product dependency. Preserve stable IDs and one work board, and keep host secrets/runtime state outside this public repository. Future EUTONOS runtime adoption is separate selected work.
+GitHub connector access proves selected committed source, not a PC state. Hosted Windows CI can establish only the exact read-only runner behavior recorded in its job. It is not owner-PC acceptance. Keep EUTONOS as repository-file development continuity rather than a product runtime dependency, preserve stable IDs and one task board, and keep private diagnostics/runtime state outside this public repository.
