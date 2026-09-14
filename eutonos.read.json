@@ -1,0 +1,154 @@
+{
+  "profile": "eutonos.tokenslang.catalog.v1",
+  "repository_id": "orthonis.repo",
+  "scope_id": "orthonis.repo",
+  "namespace": "orthonis.native",
+  "owners": {
+    "current_task": {
+      "scope_id": "orthonis.repo",
+      "namespace": "orthonis.native",
+      "resource_id": "orthonis.doc.current-task"
+    }
+  },
+  "excluded_roots": [
+    ".git",
+    ".local",
+    ".venv",
+    ".eutonos",
+    "diagnostics",
+    "reports-private",
+    "artifacts",
+    "bin",
+    "obj"
+  ],
+  "source_paths": [
+    "README.md",
+    "AGENTS.md",
+    "docs/CURRENT_TASK.md",
+    "docs/PROJECT.md",
+    "docs/ARCHITECTURE.md",
+    "docs/WORKFLOW.md",
+    "docs/PROJECT_HEALTH.md",
+    "docs/Experiments.md",
+    "docs/EUTONOS_ADOPTION.md",
+    "NAV/README.md",
+    "RAM/README.md",
+    "RAM/OED1.md",
+    "tools/check_repository.py",
+    "tests/test_repository.py"
+  ],
+  "bindings": [
+    {
+      "resource_id": "orthonis.doc.overview",
+      "path": "README.md",
+      "kind": "docs",
+      "label": "Repository overview",
+      "visibility": "public",
+      "state": "active"
+    },
+    {
+      "resource_id": "orthonis.doc.agents",
+      "path": "AGENTS.md",
+      "kind": "docs",
+      "label": "Required agent instructions",
+      "visibility": "public",
+      "state": "active"
+    },
+    {
+      "resource_id": "orthonis.doc.current-task",
+      "path": "docs/CURRENT_TASK.md",
+      "kind": "docs",
+      "label": "Sole live work owner",
+      "visibility": "public",
+      "state": "active"
+    },
+    {
+      "resource_id": "orthonis.doc.project",
+      "path": "docs/PROJECT.md",
+      "kind": "docs",
+      "label": "Product purpose and direction",
+      "visibility": "public",
+      "state": "active"
+    },
+    {
+      "resource_id": "orthonis.doc.architecture",
+      "path": "docs/ARCHITECTURE.md",
+      "kind": "docs",
+      "label": "Proposed architecture and safety boundaries",
+      "visibility": "public",
+      "state": "active"
+    },
+    {
+      "resource_id": "orthonis.doc.workflow",
+      "path": "docs/WORKFLOW.md",
+      "kind": "docs",
+      "label": "Work and publication procedure",
+      "visibility": "public",
+      "state": "active"
+    },
+    {
+      "resource_id": "orthonis.doc.health",
+      "path": "docs/PROJECT_HEALTH.md",
+      "kind": "docs",
+      "label": "Verification commands and limits",
+      "visibility": "public",
+      "state": "active"
+    },
+    {
+      "resource_id": "orthonis.doc.experiments",
+      "path": "docs/Experiments.md",
+      "kind": "docs",
+      "label": "Proposed experiments",
+      "visibility": "public",
+      "state": "active"
+    },
+    {
+      "resource_id": "orthonis.doc.eutonos-adoption",
+      "path": "docs/EUTONOS_ADOPTION.md",
+      "kind": "docs",
+      "label": "Repository adoption evidence",
+      "visibility": "public",
+      "state": "active"
+    },
+    {
+      "resource_id": "orthonis.doc.nav",
+      "path": "NAV/README.md",
+      "kind": "docs",
+      "label": "Authored navigation, not native NAV payload",
+      "visibility": "public",
+      "state": "active"
+    },
+    {
+      "resource_id": "orthonis.doc.ram-guide",
+      "path": "RAM/README.md",
+      "kind": "docs",
+      "label": "Public checkpoint policy",
+      "visibility": "public",
+      "state": "active"
+    },
+    {
+      "resource_id": "orthonis.memory.oed1",
+      "path": "RAM/OED1.md",
+      "kind": "docs",
+      "label": "Historical Markdown checkpoint, not native RAM payload",
+      "visibility": "public",
+      "state": "active"
+    },
+    {
+      "resource_id": "orthonis.source.repository-checker",
+      "path": "tools/check_repository.py",
+      "kind": "source",
+      "label": "Repository consistency checker",
+      "visibility": "public",
+      "state": "active"
+    },
+    {
+      "resource_id": "orthonis.source.repository-tests",
+      "path": "tests/test_repository.py",
+      "kind": "source",
+      "label": "Checker regression tests",
+      "visibility": "public",
+      "state": "active"
+    }
+  ]
+}

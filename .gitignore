@@ -1,0 +1,37 @@
+# Host-local state and secrets, never part of a repository handoff
+.env
+.env.*
+!.env.example
+.local/
+.venv/
+venv/
+.eutonos/
+*.key
+*.pem
+*.pfx
+*.p12
+
+# Real machine evidence must be kept out of this public repository
+diagnostics/
+reports-private/
+*.dmp
+*.etl
+*.evtx
+*.blg
+*.har
+
+# Development output
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.coverage
+htmlcov/
+bin/
+obj/
+.vs/
+artifacts/
+TestResults/
+*.user
+*.suo
+.DS_Store
+Thumbs.db
