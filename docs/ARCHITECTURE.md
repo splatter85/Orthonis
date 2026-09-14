@@ -1,65 +1,58 @@
-# Orthonis architecture direction
+# Orthonis architecture
 
 Document ID: `orthonis.doc.architecture`.
 
-Status: proposed product boundaries for future design and implementation. No product component is implemented by OED1.
+Status: OFC implements the fixture-backed read-only foundation below. Real Windows collection, real-data export controls, UI and repair boundaries remain requirements for later work, not shipped security claims.
 
-## Component boundary
+## Implemented component boundary
 
-```text
-Windows UI / command-line or test harness
-  -> case and evidence core
-  -> findings and comparison logic
-  -> report exporter / proposal importer
-  -> capability policy and action journal
-  -> platform adapters and a narrowly scoped privileged helper, if needed
-```
+The product is a small modular desktop-application foundation, currently hosted through a CLI. Built-in modules are compiled and shipped together; there is no dynamic plugin loader or module marketplace.
 
-Keep the portable core free of direct registry, service, event-log, and UI calls. A Windows collector supplies typed evidence with its collection outcome and limitations. Tests can supply synthetic evidence through the same interface; that proves only the tested core behavior, not collector accuracy on real machines.
+| Component | Current responsibility |
+| --- | --- |
+| `Orthonis.Core` | Immutable cases/evidence/findings, explicit capabilities, bounded collection coordination, strict JSON, report rendering, discovery-plan validation and execution orchestration. |
+| `Orthonis.Modules` | Startup and Reliability capability implementations; typed details, separate analysis functions, source interfaces and synthetic sources. References Core only. |
+| `Orthonis.Cli` | Explicit component composition, commands, approval input, local case storage and console output. References Modules and its transitive Core dependency. |
+| `Orthonis.Tests` | Executable behavioral regressions, including persistence fault injection; no live Windows data. |
 
-The case store, report format, rule system, persistence engine, and exact interfaces remain design tasks. Do not freeze a database or dependency simply because it appears in an illustrative architecture.
+The [contracts](../src/Orthonis.Core/Contracts.cs) and [Investigation coordinator](../src/Orthonis.Core/Investigation.cs) are shared. Adding [Reliability](../src/Orthonis.Modules/Reliability.cs) did not require modifying the existing [Startup implementation](../src/Orthonis.Modules/Startup.cs) or collection coordinator. The host explicitly registers known modules instead of discovering arbitrary assemblies. Module-specific source retrieval and interpretation stay outside the host.
+
+Core must not call Windows APIs, filesystem storage, UI controls, or model SDKs. Keep source adapters behind interfaces and share the case/report/approval mechanisms. Avoid separate feature databases and direct cross-module call chains. A future UI invokes application operations rather than reimplementing policy.
 
 ## Evidence and findings
 
-An observation should preserve its source, collection method, identity, time, relevant system scope, and outcome. Distinguish event time from collection time. A finding cites observations and separately records a hypothesis or recommendation. No historical baseline is invented when the app was not recording it.
+An observation retains its identity, originating module/capability, target identity and kind, observation time, collection outcome, detail schema, and typed serialized details. A finding references actual evidence. Cases and findings are immutable snapshots; collection creates the next revision rather than mutating the input case.
 
-Missing, failed, unsupported, stale, and healthy are different outcomes. A coincident update is not proven causation. Two similar applications are not a demonstrated conflict. Where useful, choose a bounded measurement or controlled comparison to distinguish alternatives.
+The current fixtures use observation time. Windows adapters must additionally represent actual event time and bounded query coverage where needed; do not infer event time from when a scan ran. Missing, failed, denied, timed-out, unsupported, and healthy are different outcomes. A coincident update is not proven causation, and two similar applications are not a demonstrated conflict.
+
+The report retains all case evidence, including repeated observations. Repeated hang summaries are not new crashes, and an old missing-target finding does not prove the latest state. Richer current-versus-historical finding reconciliation is future work before presenting a live health dashboard. No historical baseline is invented when the application was not recording it.
 
 ## Discovery and repair proposals
 
-The AI returns a work order in a versioned format, not executable code. The app publishes its actual capability catalog. Each requested action uses a supported operation and constrained parameters; local IDs resolve targets without trusting model-supplied filesystem paths.
+The AI returns a work order, not executable code. [DiscoveryPlans](../src/Orthonis.Core/DiscoveryPlans.cs) binds version 1 discovery proposals to the case/revision/snapshot hash and existing evidence. The application advertises actual capabilities; targeted requests resolve known local IDs rather than model-provided paths. The entire batch is validated before a collector call. Preview performs no collection, and execution requires explicit local approval after revalidation.
 
-Required future importer behavior:
+[JsonCodec](../src/Orthonis.Core/JsonCodec.cs) rejects unknown fields/versions, duplicate JSON keys, missing required fields, malformed/truncated input, excessive size/depth, and non-finite numbers. Unknown capabilities, invalid targets, mismatched snapshot preconditions, duplicate requests and applied-plan replay fail closed. Bounds are in source and the [foundation guide](FOUNDATION_GUIDE.md). There is no generic elevated shell or repair command in this protocol.
 
-- Reject malformed, ambiguous, duplicate-key, oversized, unsupported, truncated, and non-finite input before effects. Validate all operations, not just the first.
-- Bind proposals to a case, evidence snapshot, capabilities, and relevant target preconditions. Refuse stale or already-completed operations when replay would be unsafe.
-- Enforce risk and approval locally. Calling a plan discovery or marking it safe does not change an operation's permissions.
-- Use structured argument passing and scoped implementations. No generic elevated shell escape hatch in the normal packet workflow.
-- Apply filesystem confinement at the actual operation boundary, including links/reparse points and changes between validation and use where applicable.
-
-A digest identifies selected bytes; it is not authorization or proof that a diagnosis is correct. These are requirements to test, not an implemented security boundary.
+Current target admission requires matching observed module/kind/identity in the case. It is not proof that a real Windows target still exists. Actual Windows operations must re-establish relevant live target preconditions. A digest identifies selected bytes; it is not authorization, authentication, or proof of a diagnosis. Copying a supported schema does not confer trust.
 
 ## Execution, recovery, and verification
 
-Separate read-only collection from state changes. For each supported repair, specify applicability, prerequisites, exact effects, approval, expected observation, interruption handling, and realistic recovery. Journal before/after state and uncertain outcomes where feasible. Do not represent multi-step Windows changes as universally atomic or reversible.
+The coordinator processes a bounded request list with cooperative cancellation and a per-collector timeout. Failure/denial/timeout produce explicit generic outcomes without copying exception details into reports. A malformed collector result is refused, not quietly accepted. In-process modules remain trusted code; a timeout or interface is not a sandbox and does not guarantee termination of a noncooperating operation.
 
-Prefer one justified intervention and a meaningful comparison over a batch of unrelated optimizations. A change without improvement is a useful negative result, not automatically a successful repair.
+The [case store](../src/Orthonis.Cli/CaseStore.cs) uses one cooperating writer lock, sequential revision checking and same-directory temporary-file replacement. Regression tests inject a failure before replacement and establish a readable unchanged prior case. This is not universal power-loss durability, authenticated storage, hostile-process isolation, or a guarantee of race-proof reparse confinement. Raw case files are local working data, not signed evidence.
 
-Broad registry deletion, firmware flashing, boot-configuration changes, and disabling security protections are outside routine AI-directed maintenance. Future tests of consequential effects begin in a disposable Windows environment, not the owner's everyday PC.
+For each future repair, specify applicability, exact prerequisites/effects, approval, expected observation, interruption handling, and realistic recovery. Journal uncertain outcomes. Windows changes are not universally atomic or reversible. Prefer one justified intervention and comparison over unrelated optimizations; no improvement is a useful negative result.
+
+Broad registry deletion, firmware flashing, boot-configuration changes, and disabling security protections remain outside routine AI-directed maintenance. Consequential repair tests must start in a disposable Windows environment, not an everyday PC.
 
 ## Privacy and privilege
 
-Keep full evidence local by default. Export selected, minimized records with stable aliases; present an export preview. Do not automatically export memory dumps, entire logs, unrestricted command lines, secrets, or personal content. Redaction is a tested feature with limits, not a guarantee supplied by a prompt.
+The present application only constructs synthetic sources. Its reports are not a validated real-data redaction system; the source label is not proof that manually edited case content is safe to export. Real collection must not silently reuse unrestricted fixture exports. Keep evidence local by default, minimize and preview exports, and add tested filtering/aliasing before live personal data leaves the machine. Memory dumps, full logs, unrestricted command lines and secrets must not be automatically exported.
 
-Treat log messages and AI proposals as untrusted data. The normal UI and model process should not run as administrator. A future privileged helper exposes a small authenticated, validated operation interface and cannot be bypassed through another agent tool. Model access does not imply host permissions.
+Treat logs, reports, and AI output as untrusted data. The normal host/model process should not run as administrator. A future privileged helper exposes only authenticated, validated, narrowly scoped operations and rechecks requests itself. Other agent tools must not bypass that boundary. Privilege requirements belong to each operation; read-only does not imply no elevation on every Windows source.
 
-## Development and execution environments
+## Development and execution evidence
 
-| Environment | Valid evidence | Not established |
-| --- | --- | --- |
-| GitHub connector | Selected committed source and actual read/write/readback results | Local dirty state, PC access, a callable installed runtime |
-| Isolated development container | Commands and tests actually run on its files | Windows behavior, a persistent installed service, another checkout's state |
-| GitHub Actions, when selected | Results on the specific runner/image and commit | The owner's Windows desktop or hardware behavior |
-| Windows pilot | The explicitly tested machine, build, permissions, and scenario | Every supported-looking device or all possible repairs |
+GitHub connector access establishes selected committed source and actual writes/readback, not the state of a PC. Container checks establish only commands actually run there. CI establishes behavior on its recorded runner/source view. A real Windows pilot establishes only its tested machine/build/permissions/scenarios. Synthetic sources do not establish Windows collector accuracy.
 
-EUTONOS supports development continuity through the repository owners. It is not an application dependency. Adding a runtime later must preserve this repository's IDs, owners, public-safety boundary, and acceptance distinctions.
+EUTONOS supports development continuity through readable repository owners. It is not a product dependency. Preserve stable IDs and one work board, and keep host secrets/runtime state outside this public repository. Future EUTONOS runtime adoption is separate selected work.

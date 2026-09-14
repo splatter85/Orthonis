@@ -3,152 +3,51 @@
   "repository_id": "orthonis.repo",
   "scope_id": "orthonis.repo",
   "namespace": "orthonis.native",
-  "owners": {
-    "current_task": {
-      "scope_id": "orthonis.repo",
-      "namespace": "orthonis.native",
-      "resource_id": "orthonis.doc.current-task"
-    }
-  },
-  "excluded_roots": [
-    ".git",
-    ".local",
-    ".venv",
-    ".eutonos",
-    "diagnostics",
-    "reports-private",
-    "artifacts",
-    "bin",
-    "obj"
-  ],
+  "owners": {"current_task": {"scope_id": "orthonis.repo", "namespace": "orthonis.native", "resource_id": "orthonis.doc.current-task"}},
+  "excluded_roots": [".git", ".local", ".venv", ".eutonos", "diagnostics", "reports-private", "artifacts", "bin", "obj"],
   "source_paths": [
-    "README.md",
-    "AGENTS.md",
-    "docs/CURRENT_TASK.md",
-    "docs/PROJECT.md",
-    "docs/ARCHITECTURE.md",
-    "docs/WORKFLOW.md",
-    "docs/PROJECT_HEALTH.md",
-    "docs/Experiments.md",
-    "docs/EUTONOS_ADOPTION.md",
-    "NAV/README.md",
-    "RAM/README.md",
-    "RAM/OED1.md",
-    "tools/check_repository.py",
-    "tests/test_repository.py"
+    "README.md", "AGENTS.md", "docs/CURRENT_TASK.md", "docs/PROJECT.md", "docs/ARCHITECTURE.md",
+    "docs/WORKFLOW.md", "docs/PROJECT_HEALTH.md", "docs/Experiments.md", "docs/EUTONOS_ADOPTION.md",
+    "NAV/README.md", "RAM/README.md", "RAM/OED1.md", "tools/check_repository.py", "tests/test_repository.py",
+    "docs/campaigns/OFC_FOUNDATION.md", "docs/FOUNDATION_GUIDE.md",
+    "src/Orthonis.Core/Contracts.cs", "src/Orthonis.Core/JsonCodec.cs", "src/Orthonis.Core/Investigation.cs",
+    "src/Orthonis.Core/DiscoveryPlans.cs", "src/Orthonis.Core/Report.cs", "src/Orthonis.Modules/Startup.cs",
+    "src/Orthonis.Modules/Reliability.cs", "src/Orthonis.Cli/Program.cs", "src/Orthonis.Cli/CaseStore.cs",
+    "tests/Orthonis.Tests/Program.cs", "tests/Orthonis.Tests/PlanChecks.cs", "tools/smoke_foundation.py",
+    "Orthonis.slnx", "Directory.Build.props", "global.json", ".github/workflows/foundation.yml"
   ],
   "bindings": [
-    {
-      "resource_id": "orthonis.doc.overview",
-      "path": "README.md",
-      "kind": "docs",
-      "label": "Repository overview",
-      "visibility": "public",
-      "state": "active"
-    },
-    {
-      "resource_id": "orthonis.doc.agents",
-      "path": "AGENTS.md",
-      "kind": "docs",
-      "label": "Required agent instructions",
-      "visibility": "public",
-      "state": "active"
-    },
-    {
-      "resource_id": "orthonis.doc.current-task",
-      "path": "docs/CURRENT_TASK.md",
-      "kind": "docs",
-      "label": "Sole live work owner",
-      "visibility": "public",
-      "state": "active"
-    },
-    {
-      "resource_id": "orthonis.doc.project",
-      "path": "docs/PROJECT.md",
-      "kind": "docs",
-      "label": "Product purpose and direction",
-      "visibility": "public",
-      "state": "active"
-    },
-    {
-      "resource_id": "orthonis.doc.architecture",
-      "path": "docs/ARCHITECTURE.md",
-      "kind": "docs",
-      "label": "Proposed architecture and safety boundaries",
-      "visibility": "public",
-      "state": "active"
-    },
-    {
-      "resource_id": "orthonis.doc.workflow",
-      "path": "docs/WORKFLOW.md",
-      "kind": "docs",
-      "label": "Work and publication procedure",
-      "visibility": "public",
-      "state": "active"
-    },
-    {
-      "resource_id": "orthonis.doc.health",
-      "path": "docs/PROJECT_HEALTH.md",
-      "kind": "docs",
-      "label": "Verification commands and limits",
-      "visibility": "public",
-      "state": "active"
-    },
-    {
-      "resource_id": "orthonis.doc.experiments",
-      "path": "docs/Experiments.md",
-      "kind": "docs",
-      "label": "Proposed experiments",
-      "visibility": "public",
-      "state": "active"
-    },
-    {
-      "resource_id": "orthonis.doc.eutonos-adoption",
-      "path": "docs/EUTONOS_ADOPTION.md",
-      "kind": "docs",
-      "label": "Repository adoption evidence",
-      "visibility": "public",
-      "state": "active"
-    },
-    {
-      "resource_id": "orthonis.doc.nav",
-      "path": "NAV/README.md",
-      "kind": "docs",
-      "label": "Authored navigation, not native NAV payload",
-      "visibility": "public",
-      "state": "active"
-    },
-    {
-      "resource_id": "orthonis.doc.ram-guide",
-      "path": "RAM/README.md",
-      "kind": "docs",
-      "label": "Public checkpoint policy",
-      "visibility": "public",
-      "state": "active"
-    },
-    {
-      "resource_id": "orthonis.memory.oed1",
-      "path": "RAM/OED1.md",
-      "kind": "docs",
-      "label": "Historical Markdown checkpoint, not native RAM payload",
-      "visibility": "public",
-      "state": "active"
-    },
-    {
-      "resource_id": "orthonis.source.repository-checker",
-      "path": "tools/check_repository.py",
-      "kind": "source",
-      "label": "Repository consistency checker",
-      "visibility": "public",
-      "state": "active"
-    },
-    {
-      "resource_id": "orthonis.source.repository-tests",
-      "path": "tests/test_repository.py",
-      "kind": "source",
-      "label": "Checker regression tests",
-      "visibility": "public",
-      "state": "active"
-    }
+    {"resource_id":"orthonis.doc.overview","path":"README.md","kind":"docs","label":"Repository overview","visibility":"public","state":"active"},
+    {"resource_id":"orthonis.doc.agents","path":"AGENTS.md","kind":"docs","label":"Required agent instructions","visibility":"public","state":"active"},
+    {"resource_id":"orthonis.doc.current-task","path":"docs/CURRENT_TASK.md","kind":"docs","label":"Sole live work owner","visibility":"public","state":"active"},
+    {"resource_id":"orthonis.doc.project","path":"docs/PROJECT.md","kind":"docs","label":"Product purpose and direction","visibility":"public","state":"active"},
+    {"resource_id":"orthonis.doc.architecture","path":"docs/ARCHITECTURE.md","kind":"docs","label":"Application architecture and safety boundaries","visibility":"public","state":"active"},
+    {"resource_id":"orthonis.doc.workflow","path":"docs/WORKFLOW.md","kind":"docs","label":"Work and engineering procedure","visibility":"public","state":"active"},
+    {"resource_id":"orthonis.doc.health","path":"docs/PROJECT_HEALTH.md","kind":"docs","label":"Verification commands and limits","visibility":"public","state":"active"},
+    {"resource_id":"orthonis.doc.experiments","path":"docs/Experiments.md","kind":"docs","label":"Proposed experiments","visibility":"public","state":"active"},
+    {"resource_id":"orthonis.doc.eutonos-adoption","path":"docs/EUTONOS_ADOPTION.md","kind":"docs","label":"Repository adoption evidence","visibility":"public","state":"active"},
+    {"resource_id":"orthonis.doc.nav","path":"NAV/README.md","kind":"docs","label":"Authored navigation, not native NAV payload","visibility":"public","state":"active"},
+    {"resource_id":"orthonis.doc.ram-guide","path":"RAM/README.md","kind":"docs","label":"Public checkpoint policy","visibility":"public","state":"active"},
+    {"resource_id":"orthonis.memory.oed1","path":"RAM/OED1.md","kind":"docs","label":"Historical Markdown checkpoint, not native RAM payload","visibility":"public","state":"active"},
+    {"resource_id":"orthonis.source.repository-checker","path":"tools/check_repository.py","kind":"source","label":"Repository consistency checker","visibility":"public","state":"active"},
+    {"resource_id":"orthonis.source.repository-tests","path":"tests/test_repository.py","kind":"source","label":"Checker regression tests","visibility":"public","state":"active"},
+    {"resource_id":"orthonis.doc.ofc","path":"docs/campaigns/OFC_FOUNDATION.md","kind":"docs","label":"Foundation campaign definitions and results","visibility":"public","state":"active"},
+    {"resource_id":"orthonis.doc.foundation-guide","path":"docs/FOUNDATION_GUIDE.md","kind":"docs","label":"CLI usage and Windows handoff","visibility":"public","state":"active"},
+    {"resource_id":"orthonis.source.contracts","path":"src/Orthonis.Core/Contracts.cs","kind":"source","label":"Case evidence and module contracts","visibility":"public","state":"active"},
+    {"resource_id":"orthonis.source.json-codec","path":"src/Orthonis.Core/JsonCodec.cs","kind":"source","label":"Bounded strict JSON and snapshot digest","visibility":"public","state":"active"},
+    {"resource_id":"orthonis.source.investigation","path":"src/Orthonis.Core/Investigation.cs","kind":"source","label":"Capability routing and collection coordinator","visibility":"public","state":"active"},
+    {"resource_id":"orthonis.source.discovery-plans","path":"src/Orthonis.Core/DiscoveryPlans.cs","kind":"source","label":"Discovery proposal validation preview and approval","visibility":"public","state":"active"},
+    {"resource_id":"orthonis.source.report","path":"src/Orthonis.Core/Report.cs","kind":"source","label":"Synthetic report and AI return instructions","visibility":"public","state":"active"},
+    {"resource_id":"orthonis.source.startup","path":"src/Orthonis.Modules/Startup.cs","kind":"source","label":"Startup source interface fixture and analysis","visibility":"public","state":"active"},
+    {"resource_id":"orthonis.source.reliability","path":"src/Orthonis.Modules/Reliability.cs","kind":"source","label":"Reliability source interface fixture and analysis","visibility":"public","state":"active"},
+    {"resource_id":"orthonis.source.cli","path":"src/Orthonis.Cli/Program.cs","kind":"source","label":"Composition and CLI commands","visibility":"public","state":"active"},
+    {"resource_id":"orthonis.source.case-store","path":"src/Orthonis.Cli/CaseStore.cs","kind":"source","label":"Cooperative local case persistence","visibility":"public","state":"active"},
+    {"resource_id":"orthonis.source.core-tests","path":"tests/Orthonis.Tests/Program.cs","kind":"source","label":"Executable core and storage regressions","visibility":"public","state":"active"},
+    {"resource_id":"orthonis.source.plan-tests","path":"tests/Orthonis.Tests/PlanChecks.cs","kind":"source","label":"Plan and second-module regressions","visibility":"public","state":"active"},
+    {"resource_id":"orthonis.source.cli-smoke","path":"tools/smoke_foundation.py","kind":"source","label":"Separate-process round-trip smoke","visibility":"public","state":"active"},
+    {"resource_id":"orthonis.source.solution","path":"Orthonis.slnx","kind":"source","label":"Four-project build solution","visibility":"public","state":"active"},
+    {"resource_id":"orthonis.source.build","path":"Directory.Build.props","kind":"source","label":"Shared compiler and analyzer configuration","visibility":"public","state":"active"},
+    {"resource_id":"orthonis.source.sdk","path":"global.json","kind":"source","label":"Selected SDK baseline","visibility":"public","state":"active"},
+    {"resource_id":"orthonis.source.foundation-ci","path":".github/workflows/foundation.yml","kind":"source","label":"Bounded public-runner verification","visibility":"public","state":"active"}
   ]
 }

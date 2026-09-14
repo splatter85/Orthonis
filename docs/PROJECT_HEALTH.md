@@ -2,41 +2,40 @@
 
 Document ID: `orthonis.doc.health`.
 
-## Repeatable checks
+## Foundation build and executable checks
 
-Python 3.12 or later is the selected baseline for this repository's standard-library-only check tooling. From the repository root:
+Use the SDK selected in [global.json](../global.json) and Python 3.12 or later. From the repository root:
 
 ```sh
+dotnet build Orthonis.slnx --configuration Release
+dotnet run --project tests/Orthonis.Tests --configuration Release --no-build
+python tools/smoke_foundation.py
 python tools/check_repository.py
 python -m unittest discover -s tests -v
 ```
 
-An alternate root can be checked without modifying it:
+The C# suite is a small executable regression harness with a failing exit code on any failed check. It is intentionally invoked by `dotnet run`, not discovered by `dotnet test`. [Core/module/storage regressions](../tests/Orthonis.Tests/Program.cs) and [plan regressions](../tests/Orthonis.Tests/PlanChecks.cs) own assertions. The [CLI smoke](../tools/smoke_foundation.py) launches separate processes against temporary synthetic cases and checks preview, refusal, approval, replay, unchanged case bytes and fresh-process reload.
 
-```sh
-python tools/check_repository.py --root /path/to/Orthonis
-```
+The [build configuration](../Directory.Build.props) treats compiler/analyzer warnings as errors. .NET library APIs are used without external package dependencies. The [solution](../Orthonis.slnx) builds Core, Modules, CLI and the regression harness together. CLI usage is in [Foundation guide](FOUNDATION_GUIDE.md).
 
-The checker reads the explicit catalog and Markdown owners. It checks the repository-local catalog shape, unique stable IDs, case-distinct paths, source/owner routing, supported work-block shape, exact scoped references, local link targets/anchors, and exclusion/path boundaries. It does not fetch external URLs, execute imported data, or repair files.
+## Repository consistency checks
 
-The tests exercise valid and idle pickup plus deliberately malformed, ambiguous, missing, escaping, symlinked, and stale-reference cases. A successful check establishes these structural properties only. This independently authored checker is not the upstream EUTONOS runtime validator, a security sandbox, a secret scanner, or proof of all TokenSlang profiles.
+The independently authored Python checker validates this deployment's explicit catalog and Markdown owners: unique IDs, case-distinct source paths, owner routing, selected work shape, exact scoped references, local links/anchors and exclusions. It does not fetch external links, repair files, certify all TokenSlang profiles, scan secrets, or execute a native EUTONOS runtime. Its tests include malformed, missing, ambiguous, escaping, symlink and stale-reference cases.
 
-## Publication verification
+An alternate source root can be checked with `python tools/check_repository.py --root /path/to/Orthonis`. The source catalog is a selected useful inventory, not a claim that every source line is semantically mapped. Build and application behavior require their separate tests.
 
-Inspect the proposed paths/diff before writing. After publication, fetch the exact committed tree and compare blob identities with the tested bytes, then read boot/task/adoption/checkpoint owners through the connector. Record the resulting source commit in the evidence owner. A later documentation-only closeout must also be checked and read back.
+## Hosted checks and evidence owners
 
-The containing Git commit identifies the version of an evidence record. Do not embed an invented future commit into itself. A historical checkpoint may pin the prior verified source commit; Git history supplies the record's own publication identity.
+[Foundation CI](../.github/workflows/foundation.yml) runs for pull requests into `main`, only while the repository is public, on standard `ubuntu-24.04` and `windows-2022` runners. Each job has a ten-minute bound and read-only repository permissions. Actions are pinned; checkout credentials are not persisted. The workflow uploads no artifacts or caches and makes no model calls. Changing visibility or using billable resources needs a separate decision.
 
-## Current evidence owner
+[OFC campaign](campaigns/OFC_FOUNDATION.md) owns observed application results, exact source views, run IDs and unrun boundaries. [EUTONOS adoption](EUTONOS_ADOPTION.md) preserves OED1's earlier file-mode setup evidence; it is not current product acceptance. GitHub job logs are the direct command/result evidence. A self-written result document is not a substitute for inspecting them.
 
-[EUTONOS adoption](EUTONOS_ADOPTION.md) records OED1's observed environment, commands/results, publication/readback boundary, and remaining limits. Do not duplicate that mutable ledger here. Re-run the commands after relevant changes instead of assuming the initial result covers later work.
+Before publication review paths, source diff and actual authority. After publication fetch the exact commit/tree and relevant owners. PR CI may test a generated merge commit; retain that identity or compare its tree to the branch head rather than assuming identical bytes. The containing Git commit identifies an evidence record's version; do not invent a future self-referential commit.
 
-## Acceptance boundaries
+## Acceptance limits
 
-No .NET build, C# compiler, Windows integration test, application UI, installer, privileged operation, model connection, EUTONOS native installation, RNAVL sweep, or native RAM capture is established by these checks. There is no GitHub Actions workflow in OED1, and publication does not trigger one created by this setup.
+C# build/regression and CLI success establish only tested synthetic behavior on the recorded hosts. They do not establish Windows registry/event-log collector accuracy, actual PC health, UI quality, installation, repair safety, provider authentication, real-data redaction, independent model comprehension, or AI savings.
 
-A future application slice must select its own test/toolchain commands. Report separately: portable-core tests, Windows-runner checks, and actual Windows PC verification. Synthetic fixtures must be labeled and must not be treated as real-system observations. An unrun or unsupported check remains unrun or unsupported, not healthy.
+Storage failure injection covers failure before file replacement, not sudden power loss or every filesystem race. The case store is for cooperating local writers, not hostile administrators. Inputs are bounded and strict, but that is not a complete hostile-code sandbox or prompt-injection solution.
 
-## Review priorities
-
-Review owner authority, actual versus planned capabilities, source provenance, and public-data safety as well as mechanical links. Confirm that an idle board does not silently select the next product task. For future repair work, include negative and interruption tests before claiming safe execution or recovery.
+The real Windows read-only pilot remains owed. Record its OS/build, permissions, source coverage and actual collector checks separately; do not treat fixture results as real observations. Real-data export and privileged repairs require their own review and tests before they are enabled.
