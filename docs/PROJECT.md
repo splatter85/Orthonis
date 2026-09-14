@@ -10,7 +10,7 @@ The working name is Orthonis. The intended identity is diagnostics, maintenance,
 
 ## Present state
 
-Only the repository workflow and its consistency-check tooling are being established. There is no application runtime, C# solution, Windows collector, repair action, installer, or AI connection. [EUTONOS adoption](EUTONOS_ADOPTION.md) owns deployment evidence; [Current Task](CURRENT_TASK.md) owns live work.
+The repository contains its development workflow and consistency-check tooling. There is no application runtime, C# solution, Windows collector, repair action, installer, or AI connection. [EUTONOS adoption](EUTONOS_ADOPTION.md) owns deployment evidence; [Current Task](CURRENT_TASK.md) owns live work.
 
 ## Intended capabilities
 

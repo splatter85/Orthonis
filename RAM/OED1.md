@@ -10,9 +10,13 @@ The owner chose Orthonis and asked to deploy EUTONOS before application work. Th
 
 The selected upstream source is EUTONOS commit `4eeff6de668a664ce2ebbad249f8eeb8fb21f945`. Its repository-only adapter contract provides a basis for a file-based workflow, but does not turn published documentation into an installed runtime.
 
-## Current observation
+## Verified deployment observation
 
-The populated files passed the repository checker and all 24 regression tests in the isolated Python 3.13.5 Linux environment. Publication/readback completion is not yet claimed in this checkpoint version. [Adoption evidence](../docs/EUTONOS_ADOPTION.md) owns the actual verification record, and [Current Task](../docs/CURRENT_TASK.md) owns live selection.
+The populated 16-file source was published on `main` at `c2242c52473aff53ae360a7662317b0dcff25252`. Its tree `fe7c8fc55bf0208cac3151adbecc0410bb1ad35a` matched the tested staging tree exactly. The repository checker and all 24 regression tests passed in the isolated Python 3.13.5 Linux environment. Separate connector reads recovered the published entry, selected work, adoption evidence, and this checkpoint's earlier version.
+
+Source routes at that commit: `AGENTS.md` for boot constraints; `eutonos.read.json` for identity bindings; `docs/CURRENT_TASK.md` for the completed deployment's original selection; `docs/EUTONOS_ADOPTION.md` for provenance and initial verification; `tools/check_repository.py` and `tests/test_repository.py` for the checks. This is same-agent structural/readback evidence, not independent comprehension or a native RAM capture receipt.
+
+[Adoption evidence](../docs/EUTONOS_ADOPTION.md) records closeout verification. [Current Task](../docs/CURRENT_TASK.md) is now idle and owns any future selection. This checkpoint preserves the event and exact historical source; it must not keep OED1 active or select product implementation.
 
 ## Durable boundary
 

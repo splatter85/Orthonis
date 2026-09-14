@@ -8,7 +8,7 @@ Repository: `splatter85/Orthonis`, GitHub repository ID `1370159187`, stable rep
 
 Deployment mode: **repository-files**. OED1 is the owner-selected initial deployment into the empty repository. No pre-existing branch, commit, native owner, or product source was present at inspection. The initial scope record was published as commit `2ee477d791a1b547488eddda931cc79d1a4c7883`.
 
-Status at this record version: prepared for bounded publication and exact-commit readback. Check and final publication evidence will be recorded here after observation. No installed-runtime acceptance is claimed.
+Status: **repository-files deployment verified** at the OED1 boundary. The populated source was published on `main` at `c2242c52473aff53ae360a7662317b0dcff25252` and read back. No installed-runtime acceptance is claimed.
 
 The owner authorized setup of EUTONOS first, not application implementation. The permitted plan is the 16-file set recorded in OED1's initial scope commit. The public destination receives project-specific instructions, public-safe provenance, and independently authored tooling, not copied private runtime source or diagnostic data. Visibility and licensing are not changed.
 
@@ -31,7 +31,7 @@ These upstream paths are provenance, not mandatory boot dependencies. Upstream a
 
 | Capability | This deployment |
 | --- | --- |
-| Docs | Populated native owners, boot instructions, one live task, and public-safe source routes. |
+| Docs | Populated native owners, boot instructions, one live work owner, and public-safe source routes. |
 | Stable references / TokenSlang | One `eutonos.read.json` catalog using the documented `catalog.v1` shape; selected work uses one `work.v1` block when a task is active. |
 | NAV | Authored document routing in `NAV/README.md`; no native NAV runner, sweeps, semantic-code map, or ATLAS installation. |
 | RAM-lite | Optional Markdown checkpoints under `RAM/`; not native RAM objects, capture APIs, or automated memory. |
@@ -50,7 +50,11 @@ Observed on 2026-09-14 in an isolated Linux development container with Python 3.
 - `python -m unittest discover -s tests -v`: 24 tests passed, including the symlink case; no skips.
 - No external dependencies, network fetch, Windows utility, model API, or privileged operation was required by these checks.
 
-Exact published-tree comparison and connector readback of the populated owners remain pending in this version. These are staging-file results, not a claim that an unobserved remote or PC checkout passed.
+Publication was completed through a nonforced `main` update to `c2242c52473aff53ae360a7662317b0dcff25252`. GitHub returned tree `fe7c8fc55bf0208cac3151adbecc0410bb1ad35a`, exactly matching the locally checked 16-file Git tree. A separate branch read confirmed that commit/tree, and separate exact-commit fetches of `AGENTS.md`, `docs/CURRENT_TASK.md`, this adoption owner, and `RAM/OED1.md` returned the expected text and blob identities.
+
+`git diff --cached --check` passed in the isolated staging repository. The closeout version removes the completed selection rather than fabricating another task. The checker and all 24 regression tests were rerun successfully with the idle board. Git identifies this closeout record's own publication version; the source pin above is the verified deployment it describes.
+
+These checks establish the published file-mode workflow, not a remote Windows build, native EUTONOS execution, or independent-agent understanding. The container could not clone GitHub directly because network name resolution was unavailable; source publication and readback used the connected GitHub tools. No unsupported credential workaround was used.
 
 ## Retained lessons and remaining boundaries
 
