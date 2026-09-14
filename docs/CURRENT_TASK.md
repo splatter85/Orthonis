@@ -2,16 +2,33 @@
 
 Document ID: `orthonis.doc.current-task`.
 
-## Foundation implementation complete; review and Windows pilot remain
+## Selected documentation work
 
-OFC1 and OFC2 reached their fixture-backed construction and execution boundaries on `codex/ofc-foundation`, in draft review PR #1. [OFC campaign](campaigns/OFC_FOUNDATION.md) owns slice definitions, exact commits/runs and remaining limits. OFC2 source `6b5af33c0d1150c9f7fb7acc5bc98c265d634cc9` passed the expanded C# suite, CLI round trip and repository checks on GitHub Ubuntu and Windows runners in run `34871192918`.
+```tokenslang-work
+{
+  "profile": "eutonos.tokenslang.work.v1",
+  "work_id": "orthonis.work.ofc-cli-plan",
+  "goal": "Revise the foundation campaign for CLI-first development and prepare an exact-source handoff for the next implementation slice.",
+  "status": "selected",
+  "required": [
+    {"scope_id": "orthonis.repo", "namespace": "orthonis.native", "resource_id": "orthonis.doc.agents"},
+    {"scope_id": "orthonis.repo", "namespace": "orthonis.native", "resource_id": "orthonis.doc.workflow"},
+    {"scope_id": "orthonis.repo", "namespace": "orthonis.native", "resource_id": "orthonis.doc.architecture"},
+    {"scope_id": "orthonis.repo", "namespace": "orthonis.native", "resource_id": "orthonis.doc.health"}
+  ]
+}
+```
 
-There is no active `tokenslang-work` block: the two admitted implementation slices are complete, not an implicit assignment to build repairs or perform the Windows pilot. The final documentation/catalog update has its own containing commit and PR check status; inspect that status before integration. Product work is published on the task branch, not merged into main or deployed to a PC.
+Authority: the owner requested continued command-line development until functionality is clearer, campaign amendments based on implemented work, and a detailed continuation prompt. This turn changes documentation and directly affected routes only. It does not start live collectors, UI, repairs, a model connection, or a merge.
 
-## Next concrete work
+Source baseline: `splatter85/Orthonis`, branch `codex/ofc-foundation`, commit `fa2b5dc567213043ac7871a43c278c598ff81446`; draft PR #1 remains open and unmerged. Preserve the checked OFC1/OFC2 implementation and OED1 history. [OFC campaign](campaigns/OFC_FOUNDATION.md) owns the slice definitions and historical evidence.
 
-Review PR #1 and select the actual Windows read-only collector checkpoint. The [foundation guide](FOUNDATION_GUIDE.md) provides build/CLI commands, source interfaces, and the local handoff. A receiving session must inspect its actual branch/revision and dirty state, run the fixture checks, then implement only its selected live adapters. Real-data export controls, event-time semantics and target freshness need explicit treatment before enabling live reports.
+Allowed edits: the existing campaign, current task, architecture, project, foundation guide, and short agent-entry routing/policy clarification as needed. Preserve stable IDs; no new product code, SDK change, dependency, workflow, real machine evidence, or upstream EUTONOS edit.
 
-No PC access is available through repository text. No live Windows collector, repair executor, UI, installer, AI provider, real-data redactor, or native EUTONOS runtime has been implemented. Do not infer those capabilities from a green Windows-runner fixture test.
+Next action: reconcile the live-data prerequisites against actual source, define the next bounded CLI/Windows slice and later checkpoints, validate the documentation, publish a nonforced update on this branch, and return the source-pinned implementation handoff. A replacement session must recheck branch state before resuming.
 
-Record the next substantive selection here before execution, following [Workflow](WORKFLOW.md). Preserve OED1 historical adoption evidence and stable source IDs; no separate PC-only board is needed.
+## Retained foundation status
+
+OFC1 and OFC2 reached their fixture-backed construction/execution boundaries. Their final head above passed GitHub run `34871838719` on Ubuntu and Windows runners; the earlier implementation runs remain in the campaign. A Windows runner executing fixtures is not proof of a real Windows collector. No PC was scanned or repaired.
+
+The [foundation guide](FOUNDATION_GUIDE.md) owns existing CLI commands and source routes. Its current synthetic export path is not a real-data redactor. Event-time semantics, coverage, source identity, and target freshness need explicit treatment before live evidence is enabled.
