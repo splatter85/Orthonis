@@ -62,6 +62,7 @@ public sealed class WindowsStartupModule(IRunRegistry registry, IExecutableProbe
             RunListing listing;
             try { listing = registry.Enumerate(hive, token); }
             catch (UnauthorizedAccessException) { listing = new(CollectionStatus.PermissionDenied, [], 0); }
+            catch (System.Security.SecurityException) { listing = new(CollectionStatus.PermissionDenied, [], 0); }
             catch (Exception ex) when (ex is not OperationCanceledException and not RefusalException)
             { listing = new(CollectionStatus.Failed, [], 0); }
             Contract.Require(!listing.Values.IsDefault && listing.Values.Length <= RunIdentity.PerKeyLimit &&

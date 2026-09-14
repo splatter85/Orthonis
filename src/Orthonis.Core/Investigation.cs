@@ -78,6 +78,8 @@ public sealed class Investigation
             { result = Failure(snapshot, route.Capability, request, CollectionStatus.TimedOut); }
             catch (UnauthorizedAccessException)
             { result = Failure(snapshot, route.Capability, request, CollectionStatus.PermissionDenied); }
+            catch (System.Security.SecurityException)
+            { result = Failure(snapshot, route.Capability, request, CollectionStatus.PermissionDenied); }
             catch (Exception ex) when (ex is not OperationCanceledException and not RefusalException)
             { result = Failure(snapshot, route.Capability, request, CollectionStatus.Failed); }
             Contract.Require(!result.Evidence.IsDefaultOrEmpty && !result.Findings.IsDefault &&
