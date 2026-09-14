@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="src/Orthonis.Core/Orthonis.Core.csproj" />
+  <Project Path="src/Orthonis.Modules/Orthonis.Modules.csproj" />
+  <Project Path="src/Orthonis.Cli/Orthonis.Cli.csproj" />
+  <Project Path="tests/Orthonis.Tests/Orthonis.Tests.csproj" />
+</Solution>

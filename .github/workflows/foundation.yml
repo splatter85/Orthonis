@@ -1,0 +1,45 @@
+name: Orthonis foundation
+on:
+  push:
+    branches: [codex/ofc-foundation]
+    paths: ['src/**', 'tests/**', 'tools/**', 'docs/**', 'eutonos.read.json', '*.props', '*.slnx', 'global.json', 'NuGet.Config', '.github/workflows/foundation.yml']
+  pull_request:
+    branches: [main]
+permissions:
+  contents: read
+concurrency:
+  group: foundation-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  verify:
+    if: github.event.repository.private == false
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-24.04, windows-2022]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 10
+    env:
+      DOTNET_CLI_TELEMETRY_OPTOUT: '1'
+      DOTNET_NOLOGO: '1'
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - uses: actions/setup-dotnet@26b0ec14cb23fa6904739307f278c14f94c95bf1
+        with:
+          global-json-file: global.json
+      - name: Environment
+        run: dotnet --info
+      - name: Build
+        run: dotnet build Orthonis.slnx --configuration Release
+      - name: Executable regression suite
+        run: dotnet run --project tests/Orthonis.Tests --configuration Release --no-build
+      - name: CLI start and report smoke
+        run: |
+          dotnet run --project src/Orthonis.Cli --configuration Release --no-build -- start .local/smoke missing
+          dotnet run --project src/Orthonis.Cli --configuration Release --no-build -- report .local/smoke
+      - name: Repository consistency
+        run: python tools/check_repository.py
+      - name: Repository regression suite
+        run: python -m unittest discover -s tests -v
