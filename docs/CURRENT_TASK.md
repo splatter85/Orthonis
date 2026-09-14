@@ -2,33 +2,22 @@
 
 Document ID: `orthonis.doc.current-task`.
 
-## Selected documentation work
+## Next implementation slice: OFC3
 
-```tokenslang-work
-{
-  "profile": "eutonos.tokenslang.work.v1",
-  "work_id": "orthonis.work.ofc-cli-plan",
-  "goal": "Revise the foundation campaign for CLI-first development and prepare an exact-source handoff for the next implementation slice.",
-  "status": "selected",
-  "required": [
-    {"scope_id": "orthonis.repo", "namespace": "orthonis.native", "resource_id": "orthonis.doc.agents"},
-    {"scope_id": "orthonis.repo", "namespace": "orthonis.native", "resource_id": "orthonis.doc.workflow"},
-    {"scope_id": "orthonis.repo", "namespace": "orthonis.native", "resource_id": "orthonis.doc.architecture"},
-    {"scope_id": "orthonis.repo", "namespace": "orthonis.native", "resource_id": "orthonis.doc.health"}
-  ]
-}
-```
+The owner requested continued command-line development until the app's functionality has a clearer shape, a campaign revision, and a detailed continuation handoff. The documentation amendment is complete in this source version. No OFC3 implementation or real Windows scan was performed by that amendment.
 
-Authority: the owner requested continued command-line development until functionality is clearer, campaign amendments based on implemented work, and a detailed continuation prompt. This turn changes documentation and directly affected routes only. It does not start live collectors, UI, repairs, a model connection, or a merge.
+Next slice: [OFC3: live-data-aware CLI and bounded Windows Startup collection](campaigns/OFC_FOUNDATION.md#ofc3-live-data-aware-cli-and-bounded-windows-startup-collection). Status: prepared for the receiving implementation assignment, not yet started. When assigned the handoff, record `orthonis.work.ofc3` here with its scope and restart point before substantive execution. There is currently no selected `tokenslang-work` block; completed planning is not an active implementation grant. OFC4 and OFC5 are planned follow-ons only.
 
-Source baseline: `splatter85/Orthonis`, branch `codex/ofc-foundation`, commit `fa2b5dc567213043ac7871a43c278c598ff81446`; draft PR #1 remains open and unmerged. Preserve the checked OFC1/OFC2 implementation and OED1 history. [OFC campaign](campaigns/OFC_FOUNDATION.md) owns the slice definitions and historical evidence.
+## Source and delivery checkpoint
 
-Allowed edits: the existing campaign, current task, architecture, project, foundation guide, and short agent-entry routing/policy clarification as needed. Preserve stable IDs; no new product code, SDK change, dependency, workflow, real machine evidence, or upstream EUTONOS edit.
+Repository: `splatter85/Orthonis`. Continue on `codex/ofc-foundation` and existing draft PR #1; do not start from documentation-only `main` or merge automatically. The implementation baseline is `fa2b5dc567213043ac7871a43c278c598ff81446`, with both final runner jobs successful in run `34871838719`. This amendment's containing Git commit identifies the updated documentation. Re-resolve the actual remote head and preserve concurrent work at pickup; a historical pin is not reset authority.
 
-Next action: reconcile the live-data prerequisites against actual source, define the next bounded CLI/Windows slice and later checkpoints, validate the documentation, publish a nonforced update on this branch, and return the source-pinned implementation handoff. A replacement session must recheck branch state before resuming.
+OFC1/OFC2 are completed at their fixture-backed construction/execution boundaries: 53 C# behavioral checks at that baseline, the 24-test Python repository suite, and separate-process CLI round-trip smoke. Exact historical evidence remains in the [campaign](campaigns/OFC_FOUNDATION.md). No Windows adapter, owner-PC acceptance, repair, UI, live AI integration or tested live-data redaction is implied.
 
-## Retained foundation status
+## Receiving action and constraints
 
-OFC1 and OFC2 reached their fixture-backed construction/execution boundaries. Their final head above passed GitHub run `34871838719` on Ubuntu and Windows runners; the earlier implementation runs remain in the campaign. A Windows runner executing fixtures is not proof of a real Windows collector. No PC was scanned or repaired.
+Start with [AGENTS](../AGENTS.md), [Workflow](WORKFLOW.md), the [CLI-first Architecture decision](ARCHITECTURE.md#cli-first-development-decision), [Project Health](PROJECT_HEALTH.md), the OFC3 campaign section and [Foundation guide](FOUNDATION_GUIDE.md#next-windows-checkpoint-ofc3). Inspect current code, run the baseline checks available on that host, then build the bounded Startup slice rather than just another framework scaffold.
 
-The [foundation guide](FOUNDATION_GUIDE.md) owns existing CLI commands and source routes. Its current synthetic export path is not a real-data redactor. Event-time semantics, coverage, source identity, and target freshness need explicit treatment before live evidence is enabled.
+Keep the fixture loop working. OFC3 must address live source identity, coverage, unknown enablement, source-aware findings/output, persistent opaque targets and drift checks before live collection is exposed. Keep live AI/export payloads blocked; no repairs, autorun writes, target execution, elevation, cloud upload or UI work. Complete feasible code/test work without inventing unavailable Windows execution, then stop at OFC3's actual evidence boundary and leave later slices unselected.
+
+Privacy and platform limitations are prerequisites for affected functionality, not permission to replace missing live evidence with fixtures or call a partial scan healthy. Return all progress to these native owners; preserve OED1 history, the source catalog and one task board.

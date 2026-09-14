@@ -4,6 +4,14 @@ Document ID: `orthonis.doc.architecture`.
 
 Status: OFC implements the fixture-backed read-only foundation below. Real Windows collection, real-data export controls, UI and repair boundaries remain requirements for later work, not shipped security claims.
 
+## CLI-first development decision
+
+Owner decision, 2026-09-14: keep Orthonis command-line-first while its useful capabilities and workflows take shape. Do not build a desktop shell, dashboard, web UI, TUI framework, UI mockups, or choose a UI toolkit during the remaining OFC slices. Help text, progress, readable terminal output, explicit approval, and tested exit codes are application functionality, not a reason to introduce a graphical framework.
+
+Keep domain operations callable without console I/O. The CLI is one host, not the owner of collection, analysis, export policy, or authorization logic. Extract a small application service only when concrete reuse or complexity requires it; do not turn UI readiness into an empty framework or platform rewrite. A later UI must reuse the tested operations and be selected explicitly after the owner reviews real CLI workflows. Completing OFC does not automatically start UI development.
+
+The [remaining campaign slices](campaigns/OFC_FOUNDATION.md#cli-first-continuation-plan) add live-data safeguards and bounded Windows adapters before broader features. This is a planned direction, not a claim that the current fixture sources already inspect Windows.
+
 ## Implemented component boundary
 
 The product is a small modular desktop-application foundation, currently hosted through a CLI. Built-in modules are compiled and shipped together; there is no dynamic plugin loader or module marketplace.
