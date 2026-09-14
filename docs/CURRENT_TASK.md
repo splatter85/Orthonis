@@ -7,8 +7,8 @@ Document ID: `orthonis.doc.current-task`.
 ```tokenslang-work
 {
   "profile": "eutonos.tokenslang.work.v1",
-  "work_id": "orthonis.work.ofc1",
-  "goal": "Build and verify the first fixture-backed read-only Orthonis investigation path, then continue to the admitted OFC2 manual discovery round trip.",
+  "work_id": "orthonis.work.ofc2",
+  "goal": "Verify the second diagnostic module and strict manual discovery-plan round trip, then record the Windows read-only pilot handoff.",
   "status": "selected",
   "required": [
     {"scope_id": "orthonis.repo", "namespace": "orthonis.native", "resource_id": "orthonis.doc.agents"},
@@ -19,8 +19,10 @@ Document ID: `orthonis.doc.current-task`.
 }
 ```
 
-The owner approved the foundation recommendation and requested work. [OFC Foundation](campaigns/OFC_FOUNDATION.md) defines OFC1 and OFC2, both admitted in order, and the later Windows pilot. Working branch: `codex/ofc-foundation`, from `main` at `561affc9197ad6e704d074ed4b022448d542c446`. Preserve concurrent work and inspect the actual branch before resuming. Publication is to the task branch and a review PR, not an automatic merge or PC deployment.
+The owner admitted OFC1 and OFC2 in order. [OFC Foundation](campaigns/OFC_FOUNDATION.md) owns definitions and the final result. Branch: `codex/ofc-foundation`; review PR #1. No automatic merge or PC deployment.
 
-Checkpoint: OFC1 starting. Build the portable C# core and Startup fixture path, a real CLI, and executable checks. Verify on selected standard GitHub runners because the current Linux container lacks an accessible .NET toolchain. Product build/test results are not yet known. Then complete OFC2 and record exact results before the Windows handoff.
+OFC1 source `88ac39fd9398b8a69089cf510e2dd24514681509` passed build, 24 executable regression checks, CLI start/report smoke, repository consistency and the repository regression suite on GitHub Ubuntu and Windows runners in run `34870171068`. The Linux log confirms SDK 10.0.401, zero compiler warnings/errors and 24/24 C# checks. This is fixture-based cross-platform execution, not real Windows collector acceptance.
 
-No repairs, live model calls, private data, real PC inspection, or EUTONOS runtime installation are selected. Prior OED1 deployment history remains in [Adoption evidence](EUTONOS_ADOPTION.md) and [OED1 history](../RAM/OED1.md).
+OFC2 checkpoint: second module, plan validation, explicit approval, case revision/replay protection, and separate-process CLI smoke are implemented for the next build. Final OFC2 test outcomes are pending. Next: inspect the exact commit's runner results, correct work-attributable failures, update affected source routes and engineering documents, and retain precise Windows pilot limits.
+
+No repairs, live model calls, real diagnostic data, PC inspection, or EUTONOS runtime installation are selected. Prior OED1 history remains in [Adoption evidence](EUTONOS_ADOPTION.md) and [OED1 history](../RAM/OED1.md).

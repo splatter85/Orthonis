@@ -7,7 +7,7 @@ using App = Orthonis.Cli.Program;
 
 namespace Orthonis.Tests;
 
-public static class Program
+public static partial class Program
 {
     private static int passed;
     private static int failed;
@@ -142,6 +142,7 @@ public static class Program
             True(report.Contains("does not establish a healthy PC", StringComparison.Ordinal));
             True(report.Contains(JsonCodec.Hash(s), StringComparison.Ordinal));
         });
+        await PlanChecks();
         Console.WriteLine($"RESULT {passed} passed; {failed} failed. Synthetic tests only.");
         return failed == 0 ? 0 : 1;
     }

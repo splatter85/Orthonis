@@ -1,4 +1,7 @@
 using Orthonis.Core;
+using System.Runtime.CompilerServices;
+
+[assembly: InternalsVisibleTo("Orthonis.Tests")]
 
 namespace Orthonis.Cli;
 
@@ -27,7 +30,10 @@ public sealed class CaseStore : IDisposable
         return value;
     }
 
-    public void Save(CaseSnapshot value, int? expectedRevision)
+    public void Save(CaseSnapshot value, int? expectedRevision) => Save(value, expectedRevision, null);
+
+    // Fault injection is internal to the regression assembly; never exposed through a plan or CLI.
+    internal void Save(CaseSnapshot value, int? expectedRevision, Action? beforeReplace)
     {
         Contract.Validate(value);
         CheckParents(CasePath);
@@ -49,6 +55,7 @@ public sealed class CaseStore : IDisposable
                 stream.Write(bytes);
                 stream.Flush(flushToDisk: true);
             }
+            beforeReplace?.Invoke();
             File.Move(temp, CasePath, overwrite: expectedRevision is not null);
         }
         finally { if (File.Exists(temp)) File.Delete(temp); }
