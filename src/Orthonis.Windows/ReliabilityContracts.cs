@@ -1,4 +1,5 @@
 using System.Collections.Immutable;
+using System.ComponentModel;
 using System.Globalization;
 using System.Text;
 using System.Xml;
@@ -45,6 +46,14 @@ public static class ReliabilityData
     public static bool HistoryChanged(LogBoundary earlier, LogBoundary later) => earlier.CreatedAt != later.CreatedAt ||
         earlier.OldestRecord != later.OldestRecord || earlier.OldestHash != later.OldestHash || later.RecordCount < earlier.RecordCount;
 
+    // Native buffer preflight is portable/testable. Do not relabel permission or stale errors as oversized XML.
+    public static void ValidateRenderProbe(bool succeeded, int error, int required)
+    {
+        if (succeeded) throw new Win32Exception(13);
+        if (error != 122) throw new Win32Exception(error);
+        if (required < 2 || required > MaxXmlBytes || required % 2 != 0) throw new Win32Exception(122);
+    }
+
     public static ApplicationEvent Parse(string xml)
     {
         Contract.Require(xml.Length <= MaxXmlBytes / 2, "Event XML exceeds the selected bound.");
@@ -61,10 +70,10 @@ public static class ReliabilityData
         var provider = system.Element(ns + "Provider");
         var name = (string?)provider?.Attribute("Name");
         var guidText = (string?)provider?.Attribute("Guid");
-        Contract.Require(Text(name) && Value("Channel") == Channel &&
-            ulong.TryParse(Value("EventRecordID"), NumberStyles.None, CultureInfo.InvariantCulture, out var record) && record > 0 &&
-            int.TryParse(Value("EventID"), NumberStyles.None, CultureInfo.InvariantCulture, out var eventId) && eventId is >= 0 and <= 65535,
-            "Missing event identity.");
+        var hasRecord = ulong.TryParse(Value("EventRecordID"), NumberStyles.None, CultureInfo.InvariantCulture, out var record);
+        var hasEvent = int.TryParse(Value("EventID"), NumberStyles.None, CultureInfo.InvariantCulture, out var eventId);
+        Contract.Require(Text(name) && Value("Channel") == Channel && hasRecord && record > 0 &&
+            hasEvent && eventId is >= 0 and <= 65535, "Missing event identity.");
         var time = (string?)system.Element(ns + "TimeCreated")?.Attribute("SystemTime");
         Contract.Require(time is not null && time.EndsWith('Z') && DateTimeOffset.TryParse(time,
             CultureInfo.InvariantCulture, DateTimeStyles.AssumeUniversal | DateTimeStyles.AdjustToUniversal, out _), "Missing occurrence time.");
@@ -89,7 +98,7 @@ public static class ReliabilityData
     {
         Contract.Require(read is not null && Enum.IsDefined(read.Status) && !read.Records.IsDefault &&
             read.Examined is >= 0 and <= Limit + 1 && read.Records.Length <= Limit && read.InvalidRecords >= 0 &&
-            read.InvalidRecords + read.Records.Length <= read.Examined, "Invalid bounded Application read.");
+            read.InvalidRecords <= read.Examined - read.Records.Length, "Invalid bounded Application read.");
         foreach (var e in read.Records)
             Contract.Require(e is not null && e.Channel == Channel && Text(e.Provider) && e.RecordId > 0 &&
                 e.EventId is >= 0 and <= 65535 && (e.Version is null or >= 0 and <= 255) && (e.Level is null or >= 0 and <= 255) &&
@@ -124,6 +133,9 @@ public static class ReliabilityData
         Contract.Validate(snapshot);
         Contract.Require(SourceData.Mode(snapshot) == SourceMode.WindowsReliability && snapshot.Findings.IsEmpty,
             "A Windows Reliability case without inferred diagnoses is required.");
+        ReliabilityQuery? prior = null;
+        var identities = new Dictionary<ulong, string>();
+        var reusedRecordId = false;
         foreach (var e in snapshot.Evidence)
         {
             Contract.Require(SourceData.Opaque(e.Id, "ev-") && e.ModuleId == "reliability" && e.CapabilityId == "reliability.summary" &&
@@ -146,7 +158,18 @@ public static class ReliabilityData
                 "Contradictory Reliability coverage or duplicate events within a query.");
             var complete = q.Gaps == ReliabilityGap.None && e.Status is CollectionStatus.Observed or CollectionStatus.Empty;
             Contract.Require(e.Coverage.State == (complete ? CoverageState.Complete : CoverageState.Partial), "Contradictory Reliability completeness.");
-            Contract.Require((q.Gaps & Gaps(q.Read, q.From, null)) == Gaps(q.Read, q.From, null), "Missing required gap indication.");
+            foreach (var r in q.Read.Records)
+            {
+                var identity = Identity(snapshot, r);
+                if (identities.TryGetValue(r.RecordId, out var existing) && existing != identity) reusedRecordId = true;
+                identities[r.RecordId] = identity;
+            }
+            var requiredGaps = Gaps(q.Read, q.From, prior);
+            if (reusedRecordId) requiredGaps |= ReliabilityGap.RecordIdReused;
+            Contract.Require((q.Gaps & requiredGaps) == requiredGaps, "Missing required historical or query gap indication.");
+            Contract.Require(!q.Gaps.HasFlag(ReliabilityGap.SourceChanged) ||
+                (q.Read.Status == CollectionStatus.Stale && q.Read.Examined == 0 && q.Read.Records.IsEmpty), "Source change must discard records.");
+            prior = q;
         }
     }
 

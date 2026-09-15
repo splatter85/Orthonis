@@ -144,9 +144,9 @@ public sealed class WindowsApplicationEventLog : IApplicationEventLog
     }
     private static string Render(EventHandle handle)
     {
-        if (EvtRender(nint.Zero, handle, 1, 0, nint.Zero, out var required, out _) ||
-            Marshal.GetLastWin32Error() != 122 || required < 2 || required > ReliabilityData.MaxXmlBytes || required % 2 != 0)
-            throw new Win32Exception(122);
+        var succeeded = EvtRender(nint.Zero, handle, 1, 0, nint.Zero, out var required, out _);
+        var error = Marshal.GetLastWin32Error();
+        ReliabilityData.ValidateRenderProbe(succeeded, error, required);
         var buffer = Marshal.AllocHGlobal(required);
         try
         {
