@@ -13,7 +13,6 @@ public static class Program
             new StartupModule(new FixtureStartupSource(sourceLabel[10..])),
             new ReliabilityModule(new FixtureReliabilitySource(sourceLabel[10..]))]);
     }
-
     public static async Task<int> Main(string[] args)
     {
         using var cancellation = new CancellationTokenSource();
@@ -23,7 +22,6 @@ public static class Program
         try { return await RunAsync(args, Console.Out, Console.Error, new CaseOperations(), cancellation.Token).ConfigureAwait(false); }
         finally { Console.CancelKeyPress -= onCancel; }
     }
-
     // Real command dispatcher, also exercised with controlled sources by the separate test executable.
     public static async Task<int> RunAsync(string[] args, TextWriter output, TextWriter error, CaseOperations operations,
         CancellationToken cancellationToken = default)
@@ -32,14 +30,15 @@ public static class Program
         {
             if (args.Length == 0 || args is ["help"])
             {
-                output.WriteLine("Orthonis CLI: synthetic demo by default; Windows Startup is explicit opt-in. No repairs or target execution.\n" +
+                output.WriteLine("Orthonis CLI: synthetic demo by default; live Windows sources are explicit opt-in. No repairs or target execution.\n" +
                     "start <case-directory> [healthy|missing|denied|inconclusive]\n" +
-                    "start-windows <case-directory>\nsummary <case-directory>\n" +
+                    "start-windows <case-directory>\nstart-reliability <case-directory>\nsummary <case-directory>\n" +
                     "report <case-directory>                 (synthetic export only)\n" +
                     "example-plan <case-directory>           (synthetic only)\n" +
-                    "local-plan <case-directory> [target-id]  (local/private Windows plan)\n" +
-                    "apply <case-directory> <plan.json> [--approve]\ncapabilities [--windows-startup]\n" +
-                    "Live coverage: HKCU/HKLM Run in the native registry view, at most 32 entries per key. Other startup surfaces are excluded.\n" +
+                    "local-plan <case-directory> [target-id]  (local/private Windows plan; Reliability takes no target)\n" +
+                    "apply <case-directory> <plan.json> [--approve]\ncapabilities [--windows-startup|--windows-reliability]\n" +
+                    "Startup: HKCU/HKLM Run in the native registry view, at most 32 entries per key. Other startup surfaces are excluded.\n" +
+                    "Reliability: Application levels 1/2/3 plus Windows Error Reporting, preceding seven days, newest 64 records; metadata only, not incident counts.\n" +
                     "Live case files are private. Live report/example-plan export is blocked. No fallback on unsupported hosts.\n" +
                     "Exit: 0 completed/preview (not health); 1 internal failure; 2 refused/unsupported/export blocked; 3 cancelled; 4 storage unavailable.");
                 return 0;
@@ -53,6 +52,12 @@ public static class Program
             {
                 error.WriteLine("Reading the bounded Windows Run subset. Evidence stays in the local case; Ctrl+C cancels before saving.");
                 output.Write(await operations.StartWindows(liveDirectory, cancellationToken).ConfigureAwait(false));
+                return 0;
+            }
+            if (args is ["start-reliability", var reliabilityDirectory])
+            {
+                error.WriteLine("Reading bounded local Application event metadata. No messages/dumps are exported; Ctrl+C cancels before saving.");
+                output.Write(await operations.StartReliability(reliabilityDirectory, cancellationToken).ConfigureAwait(false));
                 return 0;
             }
             if (args is ["summary", var summaryDirectory]) { output.Write(operations.Summary(summaryDirectory)); return 0; }
@@ -78,6 +83,11 @@ public static class Program
             if (args is ["capabilities", "--windows-startup"])
             {
                 output.WriteLine(Encoding.UTF8.GetString(JsonCodec.Encode(operations.WindowsCapabilities())));
+                return 0;
+            }
+            if (args is ["capabilities", "--windows-reliability"])
+            {
+                output.WriteLine(Encoding.UTF8.GetString(JsonCodec.Encode(operations.ReliabilityCapabilities())));
                 return 0;
             }
             throw new RefusalException("Unknown command or arguments.");

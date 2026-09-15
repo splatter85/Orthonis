@@ -36,6 +36,8 @@ jobs:
         run: python tools/smoke_foundation.py
       - name: OFC3 controlled round trip and no-dump native Windows read
         run: python tools/smoke_ofc3.py
+      - name: OFC4 controlled round trip and no-dump native Application read
+        run: python tools/smoke_ofc4.py
       - name: Repository consistency
         run: python tools/check_repository.py
       - name: Repository regression suite
