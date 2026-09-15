@@ -2,19 +2,31 @@
 
 Document ID: `orthonis.doc.nav`.
 
-This is an authored document-routing map for the repository-only deployment. It is not a generated source index, native NAV sweep result, or ATLAS graph. Resolve IDs through [the catalog](../eutonos.read.json), then inspect the selected source revision. Known direct paths remain valid.
+This is an authored routing map, not a generated NAV sweep or ATLAS graph. Resolve IDs through [the catalog](../eutonos.read.json), then inspect source at the selected commit. Known direct paths remain valid.
 
 | Question | Read | Stable ID |
 | --- | --- | --- |
-| What am I authorized to do now? | [Current Task](../docs/CURRENT_TASK.md) | `orthonis.doc.current-task` |
-| What rules govern this session? | [Agent entry](../AGENTS.md) | `orthonis.doc.agents` |
-| What is Orthonis intended to do? | [Project](../docs/PROJECT.md) | `orthonis.doc.project` |
-| Where are privilege, AI, and repair boundaries? | [Architecture](../docs/ARCHITECTURE.md) | `orthonis.doc.architecture` |
-| How do I publish or hand off to Windows? | [Workflow](../docs/WORKFLOW.md) | `orthonis.doc.workflow` |
-| What can I actually test? | [Project Health](../docs/PROJECT_HEALTH.md) | `orthonis.doc.health` |
-| Is an EUTONOS runtime installed? | [Adoption evidence](../docs/EUTONOS_ADOPTION.md) | `orthonis.doc.eutonos-adoption` |
-| What useful setup history is available? | [RAM guide](../RAM/README.md) | `orthonis.doc.ram-guide` |
-| Which experiments are merely proposed? | [Experiments](../docs/Experiments.md) | `orthonis.doc.experiments` |
-| Where do repository checks live? | [Checker](../tools/check_repository.py) and [tests](../tests/test_repository.py) | `orthonis.source.repository-checker`, `orthonis.source.repository-tests` |
+| What is selected now? | [Current Task](../docs/CURRENT_TASK.md) | `orthonis.doc.current-task` |
+| What rules govern work? | [Agent entry](../AGENTS.md), [Workflow](../docs/WORKFLOW.md) | `orthonis.doc.agents`, `orthonis.doc.workflow` |
+| What does the product do now versus later? | [Project](../docs/PROJECT.md) | `orthonis.doc.project` |
+| How are components and safety boundaries arranged? | [Architecture](../docs/ARCHITECTURE.md) | `orthonis.doc.architecture` |
+| What did the foundation campaign establish? | [OFC](../docs/campaigns/OFC_FOUNDATION.md) | `orthonis.doc.ofc` |
+| How do I run synthetic and live Windows flows? | [Foundation guide](../docs/FOUNDATION_GUIDE.md) | `orthonis.doc.foundation-guide` |
+| What is the bounded Reliability/API contract? | [OFC4 Reliability](../docs/OFC4_RELIABILITY.md) | `orthonis.doc.ofc4-reliability` |
+| What checks must actually run? | [Project Health](../docs/PROJECT_HEALTH.md) | `orthonis.doc.health` |
+| Which case/evidence types connect modules? | [Contracts](../src/Orthonis.Core/Contracts.cs) | `orthonis.source.contracts` |
+| Where are live source identity and coverage defined? | [Source data](../src/Orthonis.Core/SourceData.cs) | `orthonis.source.source-data` |
+| What schedules collection and validates requests? | [Investigation](../src/Orthonis.Core/Investigation.cs) | `orthonis.source.investigation` |
+| Where is the imported-plan boundary? | [Discovery plans](../src/Orthonis.Core/DiscoveryPlans.cs), [JSON](../src/Orthonis.Core/JsonCodec.cs) | `orthonis.source.discovery-plans`, `orthonis.source.json-codec` |
+| Where does the synthetic export report come from? | [Report](../src/Orthonis.Core/Report.cs) | `orthonis.source.report` |
+| Where are portable synthetic modules? | [Startup](../src/Orthonis.Modules/Startup.cs), [Reliability](../src/Orthonis.Modules/Reliability.cs) | `orthonis.source.startup`, `orthonis.source.reliability` |
+| Where are CLI dispatch and reusable operations? | [CLI](../src/Orthonis.Cli/Program.cs), [Case operations](../src/Orthonis.Cli/CaseOperations.cs), [Case store](../src/Orthonis.Cli/CaseStore.cs) | `orthonis.source.cli`, `orthonis.source.case-operations`, `orthonis.source.case-store` |
+| Where is the bounded Windows Run collector? | [Run contracts](../src/Orthonis.Windows/RunContracts.cs), [Registry](../src/Orthonis.Windows/WindowsRunRegistry.cs), [Startup module](../src/Orthonis.Windows/WindowsStartupModule.cs) | `orthonis.source.windows-run-contracts`, `orthonis.source.windows-run-registry`, `orthonis.source.windows-startup-module` |
+| Where are command/path safety checks? | [Command resolver](../src/Orthonis.Windows/RunCommand.cs), [Executable probe](../src/Orthonis.Windows/LocalExecutableProbe.cs) | `orthonis.source.windows-run-command`, `orthonis.source.windows-executable-probe` |
+| Where is live Reliability collected and validated? | [Reliability contracts](../src/Orthonis.Windows/ReliabilityContracts.cs), [Application adapter](../src/Orthonis.Windows/WindowsApplicationEventLog.cs), [Reliability module](../src/Orthonis.Windows/WindowsReliabilityModule.cs) | `orthonis.source.windows-reliability-contracts`, `orthonis.source.windows-application-log`, `orthonis.source.windows-reliability-module` |
+| Where are executable regressions? | [Core tests](../tests/Orthonis.Tests/Program.cs), [Plan tests](../tests/Orthonis.Tests/PlanChecks.cs), [Live tests](../tests/Orthonis.Tests/LiveChecks.cs), [Live CLI tests](../tests/Orthonis.Tests/LiveCliChecks.cs), [Permission tests](../tests/Orthonis.Tests/PermissionChecks.cs), [Reliability tests](../tests/Orthonis.Tests/ReliabilityChecks.cs) | `orthonis.source.core-tests`, `orthonis.source.plan-tests`, `orthonis.source.live-tests`, `orthonis.source.live-cli-tests`, `orthonis.source.permission-tests`, `orthonis.source.reliability-tests` |
+| Where are separate-process smokes? | [Foundation smoke](../tools/smoke_foundation.py), [OFC3 smoke](../tools/smoke_ofc3.py), [OFC4 smoke](../tools/smoke_ofc4.py) | `orthonis.source.cli-smoke`, `orthonis.source.ofc3-smoke`, `orthonis.source.ofc4-smoke` |
+| Is a native EUTONOS runtime installed? | [Adoption evidence](../docs/EUTONOS_ADOPTION.md) | `orthonis.doc.eutonos-adoption` |
+| What history or experiments are available? | [RAM](../RAM/README.md), [Experiments](../docs/Experiments.md) | `orthonis.doc.ram-guide`, `orthonis.doc.experiments` |
 
-There is no application source to map yet. Add source-specific routes when a selected implementation creates meaningful targets. Update only affected bindings/routes and preserve issued IDs; a changed path or version is not a new identity.
+Keep issued identities. Add useful routes when source meaning grows; a file move or version does not create a new identity. The catalog and links establish locations, not source correctness or permission to run a repair.

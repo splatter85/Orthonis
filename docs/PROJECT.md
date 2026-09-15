@@ -4,45 +4,41 @@ Document ID: `orthonis.doc.project`.
 
 ## Purpose and initial users
 
-Help a Windows PC owner understand a problem, investigate relevant evidence, make a controlled repair, and determine whether it helped. The initial development pilot is an owner-operated PC; a broader consumer release is a future possibility, not an existing product.
+Help a Windows PC owner understand a problem, investigate relevant evidence, make a controlled repair, and determine whether it helped. The initial pilot is owner-operated; a broader consumer release remains future scope.
 
-The working name is Orthonis. The intended identity is diagnostics, maintenance, and evidence-based repair rather than a registry cleaner or generic speed booster. Product success is a useful supported diagnosis, fewer unnecessary changes, and honest uncertainty, not the number of issues reported.
+Orthonis is a diagnostics, maintenance, and evidence-based repair project rather than a registry cleaner or generic speed booster. Success is a useful supported diagnosis, fewer unnecessary changes, and honest uncertainty, not the number of issues reported.
 
-## Present state
+## Present capabilities
 
-The repository contains its development workflow and consistency-check tooling. There is no application runtime, C# solution, Windows collector, repair action, installer, or AI connection. [EUTONOS adoption](EUTONOS_ADOPTION.md) owns deployment evidence; [Current Task](CURRENT_TASK.md) owns live work.
+The OFC foundation is a C#/.NET 10 command-line application with a portable case/evidence core, built-in synthetic Startup and Reliability modules, bounded strict JSON, local versioned case storage, Markdown reports, and a manual discovery-plan preview/approval/follow-up loop.
 
-## Intended capabilities
+OFC3 provides opt-in live Windows Startup collection for HKCU and HKLM `Software\Microsoft\Windows\CurrentVersion\Run` in the native registry view, bounded to 32 values per key. Cases record source scope and coverage, use opaque case-scoped targets, re-read the selected registration before and after conservative local executable attribute inspection, and never execute a target. Changed or removed registrations become stale/unavailable rather than being remapped. Enablement is unknown; registration does not prove execution, boot delay, malware, health or a required repair.
+
+OFC4 provides a separate opt-in live Windows Reliability source in the same case/evidence/storage system. It reads local Application event metadata for a fixed seven-day, 64-record subset, preserves occurrence times and query intervals, records partial results and retention/clear uncertainty, and deduplicates records across persisted query history. Event-record counts are not incident/crash counts. Provider-specific payloads, messages, dumps and causes are not interpreted. See [the Reliability contract](OFC4_RELIABILITY.md).
+
+Live cases remain private local working data. Default live summaries exclude raw registry commands, paths, provider strings and event payloads. The synthetic `report`/`example-plan` export path is blocked for live cases. The local plan/approval loop requests supported follow-up reads without enabling cloud sharing. Synthetic reports remain available for the manual AI exchange.
+
+There is no desktop UI, repair executor, installer, tested minimized real-data AI exporter or model-provider integration. The code is published on `codex/ofc-foundation` in draft PR #1, not a released or merged application. [Foundation Guide](FOUNDATION_GUIDE.md) owns commands and [OFC](campaigns/OFC_FOUNDATION.md) owns execution evidence and acceptance limits.
+
+## Intended product capabilities
 
 | Area | Intended outcome |
 | --- | --- |
 | Maintain | Storage analysis, carefully scoped cleanup, startup review, update visibility, and supported Windows integrity checks. |
 | Investigate | Symptom-led cases, snapshots, changes over time, bounded performance capture, reliability events, and evidence-based conflict hypotheses. |
 | Repair and verify | Supported actions with prerequisites, clear approvals, execution records, operation-specific recovery, and comparison after a change. |
-| Explain | Plain-language findings that distinguish observed facts, hypotheses, unavailable checks, and recommended next measurements. |
+| Explain | Plain-language findings separating observed facts, hypotheses, unavailable checks, and recommended measurements. |
 
-Examples such as startup investigation, storage growth, Windows integrity, crash analysis, driver history, and software conflicts describe future scope. They are not implemented detections or claims that a current PC has those problems. Missing paths or suspicious registry references do not alone justify deletion.
+Storage growth, Windows integrity, crash-cause analysis, driver history and software conflicts describe future scope. A missing registry or executable reference, or a reported event, does not justify deletion or establish performance impact.
 
 ## Optional AI
 
-The first intended AI workflow is manual: export a minimized report and available capabilities, analyze it in a chat service, then import a structured discovery or repair proposal. The application must validate it locally. Subsequent reports support an iterative investigation rather than a one-shot recommendation.
+The implemented exchange mechanism for synthetic cases exports a report with available capabilities and accepts a structured discovery proposal after local validation and approval. The transport is manual copying of text/JSON, not a live agent or API connection. Live Windows cases deliberately do not use that unrestricted exporter.
 
-Live Codex, API-provider, direct-chat-tool, and local-model connections remain optional future adapters. Their authentication, current provider policies, account availability, cost, and tool permissions must be verified at implementation time. Do not promise unlimited/free usage or reuse credentials by extracting browser cookies or private authentication stores.
+Future Codex, API-provider, direct-chat-tool and local-model connections remain optional adapters. Their authentication, current provider policies, costs, permissions and privacy projection must be verified at implementation. Orthonis should remain useful without AI; losing model access must not trigger hidden paid usage or bypass local controls.
 
-The product remains useful without AI. Loss of model access pauses AI investigation rather than silently incurring another charge or skipping local safety controls. Development-time EUTONOS and product-time diagnostic AI are separate concerns.
+## Development direction
 
-## Working development direction
+Keep the small built-in modular architecture and CLI-first policy described in [Architecture](ARCHITECTURE.md). OFC3 and OFC4 add narrow read-only Windows sources. OFC5, the cross-module Windows pilot and private-data/export decision, remains a future unselected slice, not automatic authority to run on an owner's PC.
 
-Build a portable evidence/report/validation core against clearly labeled synthetic cases. Add Windows collectors behind interfaces, then verify them on Windows. C#/.NET with a Windows-native interface is a proposed technical direction, not a selected SDK version or shipped stack.
-
-A candidate first product milestone is a read-only investigation flow: create a case, import or collect a snapshot, explain findings, export a report, and validate a request for more evidence. This direction is not authorization to start that milestone during OED1.
-
-## Success measures
-
-Evaluate correctness, false positives, evidence quality, unnecessary changes avoided, successful post-change verification, recovery behavior, collection overhead, and AI usage when available. A healthy computer should be allowed to have nothing that needs repair. Exact performance attribution must come from actual measurements.
-
-## Deferred decisions
-
-Select the first application slice, SDK/UI toolkit and supported Windows versions, distribution/signing strategy, application license, and threat-model details before the affected implementation. Do not introduce accounts, cloud storage, telemetry, monetization, or a privileged agent merely to complete repository setup.
-
-Future possibilities include richer tracing, configuration history, more application-specific collectors, and live AI. Their order depends on measured usefulness and selected work, not this list alone.
+Distribution/signing, software licensing, desktop UX, supported consumer Windows versions, live-data export policy and privileged-operation threat modeling remain open decisions.

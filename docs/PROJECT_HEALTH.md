@@ -2,41 +2,45 @@
 
 Document ID: `orthonis.doc.health`.
 
-## Repeatable checks
+## Build and executable checks
 
-Python 3.12 or later is the selected baseline for this repository's standard-library-only check tooling. From the repository root:
+Use the SDK selected in [global.json](../global.json) and Python 3.12 or later. From the repository root:
 
 ```sh
+dotnet --info
+dotnet build Orthonis.slnx --configuration Release
+dotnet run --project tests/Orthonis.Tests --configuration Release --no-build
+python tools/smoke_foundation.py
+python tools/smoke_ofc3.py
+python tools/smoke_ofc4.py
 python tools/check_repository.py
 python -m unittest discover -s tests -v
 ```
 
-An alternate root can be checked without modifying it:
+The C# suite is an executable harness, not a `dotnet test` discovery project. `Ofc3Runner` executes the 53 retained foundation checks, the OFC3 source/permission/privacy/compatibility/CLI regressions and the OFC4 Reliability regressions. Controlled tests use injected source seams and synthetic privacy sentinels; they do not manufacture autorun entries or write Windows events.
 
-```sh
-python tools/check_repository.py --root /path/to/Orthonis
-```
+`smoke_foundation.py` preserves the synthetic separate-process report/plan path. `smoke_ofc3.py` exercises fresh-process schema-2 create/reload/preview/approval/contradictory-inspection/reload with controlled sources, unchanged bytes on refusal/replay and live export gating. On Windows it also performs the bounded no-dump Run-key read and local executable attribute probes.
 
-The checker reads the explicit catalog and Markdown owners. It checks the repository-local catalog shape, unique stable IDs, case-distinct paths, source/owner routing, supported work-block shape, exact scoped references, local link targets/anchors, and exclusion/path boundaries. It does not fetch external URLs, execute imported data, or repair files.
+`smoke_ofc4.py` exercises fresh-process Reliability create/preview/approval/reload, overlapping-record deduplication, replay/refusal byte preservation and privacy sentinels. On Windows it performs a real bounded Application event query and channel-metadata read; on other hosts it checks explicit refusal without fixture fallback. No native events are written and no live case artifacts are uploaded.
 
-The tests exercise valid and idle pickup plus deliberately malformed, ambiguous, missing, escaping, symlinked, and stale-reference cases. A successful check establishes these structural properties only. This independently authored checker is not the upstream EUTONOS runtime validator, a security sandbox, a secret scanner, or proof of all TokenSlang profiles.
+The solution builds Core, Modules, Windows, CLI and the regression harness. Nullable checking, analyzers, warnings-as-errors and deterministic build settings remain enabled. `NuGet.Config` continues to clear external package feeds; OFC3/OFC4 add no third-party package or desktop framework.
 
-## Publication verification
+## Repository consistency checks
 
-Inspect the proposed paths/diff before writing. After publication, fetch the exact committed tree and compare blob identities with the tested bytes, then read boot/task/adoption/checkpoint owners through the connector. Record the resulting source commit in the evidence owner. A later documentation-only closeout must also be checked and read back.
+`python tools/check_repository.py` validates the explicit EUTONOS file catalog, stable IDs, single task owner, source paths, local links/anchors and exclusions. Its regression suite tests malformed/missing/ambiguous references, escaping, symlinks and stale catalog behavior. It is repository-structure evidence, not native EUTONOS runtime certification or application behavior evidence.
 
-The containing Git commit identifies the version of an evidence record. Do not embed an invented future commit into itself. A historical checkpoint may pin the prior verified source commit; Git history supplies the record's own publication identity.
+## Hosted checks and evidence owners
 
-## Current evidence owner
+[Foundation CI](../.github/workflows/foundation.yml) runs pull-request commits on standard `ubuntu-24.04` and `windows-2022` runners with read-only repository permissions, pinned actions, no persisted checkout credentials, no configured cache/artifact uploads and no model calls.
 
-[EUTONOS adoption](EUTONOS_ADOPTION.md) records OED1's observed environment, commands/results, publication/readback boundary, and remaining limits. Do not duplicate that mutable ledger here. Re-run the commands after relevant changes instead of assuming the initial result covers later work.
+OFC3 implementation and permission follow-up passed their recorded hosted jobs; the exact source/run/job identities remain in [OFC](campaigns/OFC_FOUNDATION.md). Those runs exercised the native Run adapter, not Reliability.
 
-## Acceptance boundaries
+OFC4 source `2848e7fd8c6f48d37559018c3d721283f0c617de` passed run `34947701494`, Windows job `104310923329` and Ubuntu job `104310923110`. Both passed build, the expanded executable suite, foundation/OFC3/OFC4 smokes, repository consistency and Python regressions. Windows additionally passed the real native Startup and Application adapter reads; Ubuntu checked portable/control paths and unsupported-host refusal. The initial OFC4 parser build failed and was fixed before this successful run; see the campaign record.
 
-No .NET build, C# compiler, Windows integration test, application UI, installer, privileged operation, model connection, EUTONOS native installation, RNAVL sweep, or native RAM capture is established by these checks. There is no GitHub Actions workflow in OED1, and publication does not trigger one created by this setup.
+The containing documentation closeout receives its own PR run and must not be called checked before its actual result. PR CI may test a generated merge commit; retain the branch SHA and run/job identities rather than calling that a merge into `main`.
 
-A future application slice must select its own test/toolchain commands. Report separately: portable-core tests, Windows-runner checks, and actual Windows PC verification. Synthetic fixtures must be labeled and must not be treated as real-system observations. An unrun or unsupported check remains unrun or unsupported, not healthy.
+## Acceptance limits
 
-## Review priorities
+Hosted Windows reads establish the implemented bounded native adapters in that runner environment. They do not establish owner-PC acceptance, comprehensive Startup/Reliability coverage, crash-cause accuracy, consumer Windows support, PC health, UI quality, installer behavior, repairs, privileged safety or a minimized AI-export projection. Event-record counts are not incident counts; empty/incomplete results never certify a healthy PC.
 
-Review owner authority, actual versus planned capabilities, source provenance, and public-data safety as well as mechanical links. Confirm that an idle board does not silently select the next product task. For future repair work, include negative and interruption tests before claiming safe execution or recovery.
+The authoring environment used for OFC3/OFC4 had no `dotnet` executable, so no local C# build is claimed. Owner-PC acceptance remains unrun and OFC5 remains unselected. Live export privacy is fail-closed by blocking the unrestricted exporter, not proof that a future minimized export policy is safe. Native cancellation is cooperative, not kernel-call isolation; before/after log metadata is not an atomic snapshot or proof of uninterrupted history.

@@ -1,0 +1,7 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup><OutputType>Exe</OutputType></PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../Orthonis.Modules/Orthonis.Modules.csproj" />
+    <ProjectReference Include="../Orthonis.Windows/Orthonis.Windows.csproj" />
+  </ItemGroup>
+</Project>

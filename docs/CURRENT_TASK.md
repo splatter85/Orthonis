@@ -2,14 +2,26 @@
 
 Document ID: `orthonis.doc.current-task`.
 
-## No active implementation selected
+## State: idle after OFC4
 
-OED1 completed the GitHub-first EUTONOS repository deployment. The populated source was published on `main` at `c2242c52473aff53ae360a7662317b0dcff25252`, matched the tested 16-file tree, and its boot, task, adoption, and RAM checkpoint owners were read back through the GitHub connector. [Adoption evidence](EUTONOS_ADOPTION.md) owns the checked boundary and remaining limits; [OED1 history](../RAM/OED1.md) preserves the source-bound checkpoint.
+The owner-selected OFC4 slice is complete at its repository and hosted Windows-runner boundary. There is no selected work block. OFC5 is a suggested next slice, not an active assignment. Keep the CLI-first policy; do not start UI, repairs, live AI/export or owner-PC work automatically.
 
-No application code, local EUTONOS runtime, native NAV/RAM service, model connection, or Windows repair has been implemented or activated. There is no selected `tokenslang-work` block because OED1 is no longer active. Do not reinterpret a completed checkpoint as authorization for new work.
+Repository: `splatter85/Orthonis`. Branch: `codex/ofc-foundation`, draft PR #1. `main` remains `561affc9197ad6e704d074ed4b022448d542c446`; no merge, release or deployment was performed. A connected branch view does not establish the state of an owner's local checkout.
 
-## Next owner decision
+## Completed boundary and evidence
 
-Select the first read-only Orthonis product-core slice, using [Project](PROJECT.md) and [Architecture](ARCHITECTURE.md). The proposed starting outcome is a case/evidence model and report/proposal boundary tested with synthetic fixtures. Implementation and the exact toolchain remain unselected.
+OFC4 was selected on 2026-09-15 from OFC3 closeout `16a881c0a99eeeda4a69eee0ce7c208fc1dd1518`, recorded in `3d944bc0448077e4226d69280639ffb447d4a095`. Initial implementation `e20fd920df45ddb972af6159b402b2b1c87387e0` had two parser compile errors, subsequently fixed. Checked product/test source is `2848e7fd8c6f48d37559018c3d721283f0c617de`.
 
-A new substantive request should be recorded here before execution, then follow [Workflow](WORKFLOW.md) at the actual current branch/commit. Independent fresh-agent pickup and the Windows handoff remain unrun; they are not required to read these repository files.
+Run `34947701494` passed Windows job `104310923329` and Ubuntu job `104310923110`: build, retained and new executable regressions, foundation/OFC3/OFC4 smokes, repository consistency and Python regressions. The Windows job also passed real bounded Run and Application event-log reads without event/registry writes or live artifact upload. The authoring container had no .NET SDK; no local C# build or owner-PC acceptance is claimed.
+
+The containing closeout commit changes documentation only and must receive its own successful PR checks before that final head is called checked. [OFC](campaigns/OFC_FOUNDATION.md#ofc4-bounded-windows-reliability-collection) owns the detailed result/history. [OFC4 Reliability](OFC4_RELIABILITY.md) owns the source contract; [Foundation Guide](FOUNDATION_GUIDE.md) and [Project Health](PROJECT_HEALTH.md) own commands and checks.
+
+## Current product and constraints
+
+The CLI supports synthetic reports/manual discovery plans, bounded live Windows Startup, and a separate opt-in live Windows Reliability source in the same case system. Reliability reads only local Application event metadata for a fixed seven-day, 64-record subset, preserves query/occurrence times and history gaps, and deduplicates event records without calling them crash counts. Source drift, unknown/malformed data, limits, errors and permissions remain explicit.
+
+Live cases and local plans remain private. `report` and `example-plan` are blocked for both live modes. No System/Security channels, arbitrary query/target, dump access, event-log write/clear, target execution, repair, elevation, model call or upload was added. Synthetic and OFC3 behavior remain covered by the retained checks.
+
+## Suggested continuation, not selected
+
+A future explicit OFC5 request can select a Windows PC for cross-module persistence/source-drift/cancellation/history checks and the live export policy decision. Start from the latest verified branch head, inspect the local checkout's dirty state and preserve concurrent work. Keep Startup and Reliability in distinct local case directories and do not upload those cases. Do not infer owner-PC health or acceptance from hosted CI.
