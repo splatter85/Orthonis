@@ -4,11 +4,11 @@ Document ID: `orthonis.doc.ofc`.
 
 ## Outcome and admission
 
-Prove a small modular application with one case/evidence core, built-in diagnostic modules and a controlled manual AI discovery loop, then establish one narrow real Windows read-only source without leaking live evidence through the unrestricted synthetic exporter. The owner approved the campaign on 2026-09-14 and later directed CLI-first continuation.
+Prove a small modular application with one case/evidence core, built-in diagnostic modules and a controlled manual AI discovery loop, then establish narrow real Windows read-only sources without leaking live evidence through the unrestricted synthetic exporter. The owner approved the campaign on 2026-09-14, later directed CLI-first continuation, and selected OFC4 on 2026-09-15.
 
 Baseline: `splatter85/Orthonis/main` at `561affc9197ad6e704d074ed4b022448d542c446`. Implementation branch: `codex/ofc-foundation`, draft review PR #1. Campaign admission was committed as `36d8e14dbca6e238a5b014700e1ba104ba8fe0b9`. Main remains the initial EUTONOS setup rather than the application foundation. Current Task alone selects live work; this file owns slice definitions/results.
 
-OFC1 and OFC2 are complete at their synthetic foundation boundaries. OFC3 is complete at the repository plus hosted `windows-2022` bounded Startup-read boundary. Owner-PC acceptance, live Reliability, general live-data export, UI and repairs remain uncompleted work.
+OFC1 and OFC2 are complete at their synthetic foundation boundaries. OFC3 and OFC4 are complete at their repository plus hosted `windows-2022` bounded Startup/Application-read boundaries. Owner-PC acceptance, general live-data export, UI and repairs remain uncompleted work. OFC5 remains unselected.
 
 ## Required reading
 
@@ -39,7 +39,7 @@ Owner direction, 2026-09-14: stay command-line-first until real functionality ma
 | OFC1 | Fixture-backed Startup case/report path | Completed at recorded synthetic boundary. |
 | OFC2 | Reliability module and validated manual discovery loop | Completed at recorded synthetic boundary. |
 | OFC3 | Live-data-aware CLI and bounded Windows Startup collection | Completed at repository and hosted Windows-runner boundary; owner-PC acceptance unrun. |
-| OFC4 | Bounded Windows Reliability collection in the same case system | Planned only; not selected. |
+| OFC4 | Bounded Windows Reliability collection in the same case system | Completed at repository and hosted Windows Application-read boundary; owner-PC acceptance unrun. |
 | OFC5 | Cross-module Windows pilot and privacy/export decision | Planned only; not selected. |
 
 ## Source findings that shaped OFC3
@@ -68,13 +68,36 @@ Run `34878077559` passed the first OFC3 implementation on both `ubuntu-24.04` an
 
 Permission-outcome follow-up run `34885157156` passed both hosts. Windows job `104113872222` and Ubuntu job `104113872533` each passed build, the expanded executable suite, foundation CLI smoke, OFC3 smoke, repository consistency and repository regressions; the Windows smoke again passed the bounded native Run read. The authoring environment had no `dotnet` executable, so no local C# build is claimed. No owner-PC live read was performed.
 
-Acceptance therefore separates: portable source/fixture behavior checked by hosted builds/tests; real adapter execution checked on the hosted Windows runner; owner-PC acceptance unrun. No autorun entries were created, no registry writes or target execution occurred, no elevation/provider/model call was used, and no live case artifact was uploaded.
+OFC3 closeout `16a881c0a99eeeda4a69eee0ce7c208fc1dd1518` passed run `34885602459`, Windows job `104115377395` and Ubuntu job `104115377755`, before OFC4 was selected.
 
-OFC3 stops here. OFC4, OFC5, UI, repairs and live AI/export remain unselected.
+Acceptance separates: portable source/fixture behavior checked by hosted builds/tests; real adapter execution checked on the hosted Windows runner; owner-PC acceptance unrun. No autorun entries were created, no registry writes or target execution occurred, no elevation/provider/model call was used, and no live case artifact was uploaded. At the OFC3 boundary, OFC4 and OFC5 were still unselected.
 
 ## OFC4: Bounded Windows Reliability collection
 
-Planned only. Dependency: OFC3's checked live-data/source/privacy contract. Add a bounded Windows Application event-log source behind the Reliability boundary while retaining Startup behavior. Preserve event occurrence time, query interval, record/channel/provider identity, retention/clear gaps and partial/query-limit outcomes. Repeated scans must not inflate counts, missing/unknown schemas remain incomplete, and no-event/incomplete results do not certify health. Choose and verify the Windows API/package only when this slice is selected. No crash-dump upload or repair is included.
+Work identity: `orthonis.work.ofc4`. Owner selected OFC4 only on 2026-09-15, from `16a881c0a99eeeda4a69eee0ce7c208fc1dd1518`; selection checkpoint `3d944bc0448077e4226d69280639ffb447d4a095`.
+
+### Outcome and implementation
+
+The explicit `start-reliability` command creates a schema-2 `windows:reliability` case and composes one `reliability.summary` version-2 capability. It uses the existing source/coverage, case storage, preview/approval/replay and export controls without converting Startup cases or modifying the synthetic modules. Startup and Reliability remain separate source modes/case directories in the same case system.
+
+The new native `wevtapi.dll` adapter reads only the local Application channel, preceding seven days, newest first, levels 1/2/3 plus Windows Error Reporting, with 64 retained records and one extra limit sentinel. Event handles remain on their creating synchronous worker; finite waits, cooperative budgets and capped XML allocations bound the selected work. No new NuGet package, desktop framework or arbitrary query/channel/target parameter was added. [OFC4 Reliability](../OFC4_RELIABILITY.md) owns the detailed API/contract decision and primary documentation routes.
+
+Evidence preserves occurrence time separately from query/observation times, channel/provider/record identity, unknown envelopes, invalid records and before/after history anchors. Payloads, messages and dumps are not persisted or interpreted. Retention/clear differences remain uncertainty rather than a claimed cause. Event-record identities deduplicate overlapping queries across saved history; reused record IDs remain distinct and flag history uncertainty. Multiple records may describe one incident, so counts are never presented as crash/incident counts or health findings.
+
+Machine/user bindings are checked before and after collection. Drift produces stale evidence and discards that attempt's records. Local summaries omit provider strings, raw hashes, bindings and payloads. Core and CLI live report/example gates remain blocked. No-event/incomplete reads never certify a healthy PC.
+
+### Review, checks and publication evidence
+
+Initial implementation `e20fd920df45ddb972af6159b402b2b1c87387e0` failed the first hosted build in run `34946945260`: two C# definite-assignment errors in parser identity checks. That failure is not counted as validation. Follow-up `2848e7fd8c6f48d37559018c3d721283f0c617de`, tree `8adb6d1a820a72e7da5d608cf34b5be20e4ff1f1`, fixes them and also preserves native render permission/stale/timeout errors, recomputes required persisted-history warnings, and removes a date-sensitive fixture assumption. Focused regressions cover each follow-up boundary.
+
+Run `34947701494` passed both hosts on source `2848e7fd8c6f48d37559018c3d721283f0c617de`:
+
+- Windows job `104310923329`: build, retained foundation/OFC3 and new OFC4 executable regressions, foundation CLI smoke, OFC3 fresh-process/native Run smoke, OFC4 fresh-process/native Application smoke, repository consistency and Python repository regressions all passed.
+- Ubuntu job `104310923110`: the same build/portable/control/repository checks passed; unsupported-host refusal was checked instead of claiming a native Windows read.
+
+The OFC4 smoke performed a real bounded Application query and obtained channel metadata on hosted Windows. It did not create/clear event logs or upload live artifacts and suppressed event details. Controlled tests cover complete/empty/denied/failed/partial/limited/stale/timed-out/cancelled reads, malformed/unknown/oversized XML, native render error classification, overlap/reused IDs, history changes, saved-warning tampering, pre/post source drift, local persistence and preview/approval/replay/cancellation privacy. Existing Startup and synthetic source/test files were preserved except the shared runner/composition/source-mode extension.
+
+No local C# build is claimed: the authoring container lacked .NET and could not clone GitHub directly. Connected source operations and the actual hosted jobs supplied verification. Hosted native reads are not owner-PC acceptance or comprehensive reliability diagnosis. OFC4 stops at this boundary; OFC5, UI, repairs and live AI/export remain unselected.
 
 ## OFC5: Cross-module Windows pilot and privacy/export decision
 
@@ -87,10 +110,10 @@ Primary guidance checked during OFC3 planning on 2026-09-14:
 - [Run and RunOnce](https://learn.microsoft.com/en-us/windows/win32/setupapi/run-and-runonce-registry-keys): registrations are command lines; OFC3 intentionally includes only Run.
 - [RegistryView](https://learn.microsoft.com/en-us/dotnet/api/microsoft.win32.registryview?view=net-10.0): registry view semantics must be explicit.
 - [File.Exists](https://learn.microsoft.com/en-us/dotnet/api/system.io.file.exists?view=net-10.0): false can represent errors/permissions, one reason OFC3 uses classified native attribute reads instead.
-- [EventLogQuery](https://learn.microsoft.com/en-us/dotnet/api/system.diagnostics.eventing.reader.eventlogquery?view=windowsdesktop-10.0): an OFC4 investigation route, not a selected dependency.
+- [EventLogQuery](https://learn.microsoft.com/en-us/dotnet/api/system.diagnostics.eventing.reader.eventlogquery?view=windowsdesktop-10.0): the earlier OFC4 investigation route, not an adopted dependency. The selected native API references are in [OFC4 Reliability](../OFC4_RELIABILITY.md).
 
 Reverify relevant APIs at later implementation; these references do not expand authorized effects.
 
 ## Publication boundary
 
-OFC3 source is published only to `codex/ofc-foundation` and draft PR #1. `main` stays unchanged until explicit integration authority. The containing closeout commit updates this campaign, Current Task, project/architecture/health/guide/NAV/catalog facts; its own PR CI must pass before the closeout is treated as checked. Preserve OED1 history and one task board.
+OFC source is published only to `codex/ofc-foundation` and draft PR #1. `main` stays unchanged until explicit integration authority. The containing OFC4 documentation closeout updates this campaign, Current Task, project/architecture/health/guide/NAV facts; its own PR CI must pass before that closeout is treated as checked. It preserves the already-checked product/test source from `2848e7fd8c6f48d37559018c3d721283f0c617de`. Preserve OED1 history and one task board.
