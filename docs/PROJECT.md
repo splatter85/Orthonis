@@ -39,6 +39,6 @@ Future Codex, API-provider, direct-chat-tool and local-model connections remain 
 
 ## Development direction
 
-Keep the small built-in modular architecture and CLI-first policy described in [Architecture](ARCHITECTURE.md). OFC3 and OFC4 add narrow read-only Windows sources. OFC5, the cross-module Windows pilot and private-data/export decision, remains a future unselected slice, not automatic authority to run on an owner's PC.
+Keep the small built-in modular architecture and CLI-first policy described in [Architecture](ARCHITECTURE.md). OFC3 and OFC4 add narrow read-only Windows sources. OFC5 completed a bounded cross-module pilot on one selected owner PC and retained the blocked live-export policy; this is not comprehensive collector, hardware-health or consumer-Windows acceptance.
 
-Distribution/signing, software licensing, desktop UX, supported consumer Windows versions, live-data export policy and privileged-operation threat modeling remain open decisions.
+Distribution/signing, software licensing, desktop UX, supported consumer Windows versions, any future minimized live-data export and privileged-operation threat modeling remain open decisions.

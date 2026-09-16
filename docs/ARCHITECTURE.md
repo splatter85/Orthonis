@@ -2,7 +2,7 @@
 
 Document ID: `orthonis.doc.architecture`.
 
-Status: OFC1/OFC2 provide the fixture-backed case/report/discovery foundation. OFC3 adds bounded Windows Startup and OFC4 adds bounded Windows Application Reliability collection. General real-data export, combined owner-PC acceptance, UI and repairs remain later work rather than shipped security claims. [OFC](campaigns/OFC_FOUNDATION.md) owns exact execution evidence.
+Status: OFC1/OFC2 provide the fixture-backed case/report/discovery foundation. OFC3 adds bounded Windows Startup and OFC4 adds bounded Windows Application Reliability collection. OFC5 completed one selected owner-PC pilot of those two read-only paths while retaining fail-closed live export. Broader consumer acceptance, general real-data export, UI and repairs remain later work rather than shipped security claims. [OFC](campaigns/OFC_FOUNDATION.md) owns exact execution evidence.
 
 ## CLI-first development decision
 

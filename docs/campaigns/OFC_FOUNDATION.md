@@ -4,11 +4,11 @@ Document ID: `orthonis.doc.ofc`.
 
 ## Outcome and admission
 
-Prove a small modular application with one case/evidence core, built-in diagnostic modules and a controlled manual AI discovery loop, then establish narrow real Windows read-only sources without leaking live evidence through the unrestricted synthetic exporter. The owner approved the campaign on 2026-09-14, later directed CLI-first continuation, and selected OFC4 on 2026-09-15.
+Prove a small modular application with one case/evidence core, built-in diagnostic modules and a controlled manual AI discovery loop, then establish narrow real Windows read-only sources without leaking live evidence through the unrestricted synthetic exporter. The owner approved the campaign on 2026-09-14, later directed CLI-first continuation, selected OFC4 on 2026-09-15 and selected OFC5 on 2026-09-16.
 
 Baseline: `splatter85/Orthonis/main` at `561affc9197ad6e704d074ed4b022448d542c446`. Implementation proceeded on `codex/ofc-foundation`; review PR #1 was integrated into `main` at `a8609aa3fbb46b2e9eb7180345f52db14c651477`. Campaign admission was committed as `36d8e14dbca6e238a5b014700e1ba104ba8fe0b9`. Current Task alone selects live work; this file owns slice definitions/results.
 
-OFC1 and OFC2 are complete at their synthetic foundation boundaries. OFC3 and OFC4 are complete at their repository plus hosted `windows-2022` bounded Startup/Application-read boundaries. Owner-PC acceptance, general live-data export, UI and repairs remain uncompleted work. OFC5 remains unselected.
+OFC1 and OFC2 are complete at their synthetic foundation boundaries. OFC3 and OFC4 are complete at their repository plus hosted `windows-2022` bounded Startup/Application-read boundaries. OFC5 completed one bounded owner-PC pilot of those adapters and retained fail-closed live export. Broader consumer acceptance, general live-data export, UI and repairs remain uncompleted work.
 
 ## Required reading
 
@@ -38,9 +38,9 @@ Owner direction, 2026-09-14: stay command-line-first until real functionality ma
 | --- | --- | --- |
 | OFC1 | Fixture-backed Startup case/report path | Completed at recorded synthetic boundary. |
 | OFC2 | Reliability module and validated manual discovery loop | Completed at recorded synthetic boundary. |
-| OFC3 | Live-data-aware CLI and bounded Windows Startup collection | Completed at repository and hosted Windows-runner boundary; owner-PC acceptance unrun. |
-| OFC4 | Bounded Windows Reliability collection in the same case system | Completed at repository and hosted Windows Application-read boundary; owner-PC acceptance unrun. |
-| OFC5 | Cross-module Windows pilot and privacy/export decision | Planned only; not selected. |
+| OFC3 | Live-data-aware CLI and bounded Windows Startup collection | Completed at repository and hosted Windows-runner boundary; later exercised on the selected OFC5 host. |
+| OFC4 | Bounded Windows Reliability collection in the same case system | Completed at repository and hosted Windows Application-read boundary; later exercised on the selected OFC5 host. |
+| OFC5 | Cross-module Windows pilot and privacy/export decision | Completed on one selected owner PC; live export remains blocked. |
 
 ## Source findings that shaped OFC3
 
@@ -97,13 +97,15 @@ Run `34947701494` passed both hosts on source `2848e7fd8c6f48d37559018c3d721283f
 
 The OFC4 smoke performed a real bounded Application query and obtained channel metadata on hosted Windows. It did not create/clear event logs or upload live artifacts and suppressed event details. Controlled tests cover complete/empty/denied/failed/partial/limited/stale/timed-out/cancelled reads, malformed/unknown/oversized XML, native render error classification, overlap/reused IDs, history changes, saved-warning tampering, pre/post source drift, local persistence and preview/approval/replay/cancellation privacy. Existing Startup and synthetic source/test files were preserved except the shared runner/composition/source-mode extension.
 
-No local C# build is claimed: the authoring container lacked .NET and could not clone GitHub directly. Connected source operations and the actual hosted jobs supplied verification. Hosted native reads are not owner-PC acceptance or comprehensive reliability diagnosis. OFC4 stops at this boundary; OFC5, UI, repairs and live AI/export remain unselected.
+No local C# build was claimed at OFC4: the authoring container lacked .NET and could not clone GitHub directly. Connected source operations and the actual hosted jobs supplied verification. Hosted native reads were not owner-PC acceptance or comprehensive reliability diagnosis. OFC4 stopped at that boundary; OFC5 was selected later while UI, repairs and live AI/export remained outside scope.
 
 ## OFC5: Cross-module Windows pilot and privacy/export decision
 
-Selected by the owner on 2026-09-16 from merged `main` baseline `60f78b283d145bb83889158f9c9e7b569dae19f3`, on branch `codex/ofc5-windows-pilot`. The selected host is the owner's Windows PC. Use distinct ignored Startup and Reliability case directories and keep all case files, plans and raw output private. Exercise the retained build/regression lanes, both bounded live adapters, fresh-process persistence, local preview/approval/replay behavior and available cancellation/history/source checks without changing Windows state merely to manufacture a condition.
+Selected by the owner on 2026-09-16 from merged `main` baseline `60f78b283d145bb83889158f9c9e7b569dae19f3`, on branch `codex/ofc5-windows-pilot`; selection checkpoint `1df0996a4195cbe57ac5c3685952a8b48822b57c`. The selected host reported Windows 25H2 build `26200.9457`, x64, with .NET SDK `10.0.401`. The Release solution build passed with zero warnings/errors. The executable harness reported 53 foundation checks, 110 cumulative foundation/OFC3 checks and 68 OFC4 controlled checks passed. Foundation, OFC3 and OFC4 smoke lanes passed locally, including bounded native Run and Application reads without Windows writes, target execution or artifact upload.
 
-The export decision remains fail-closed during the pilot. Live `report` and `example-plan` stay blocked unless the observed evidence first justifies a separately scoped minimized field-level projection with preview and leakage tests. No model call or upload is required. UI, repairs, elevation, Windows writes, release, deployment and `main` integration remain outside OFC5. Record only public-safe aggregate outcomes and distinguish controlled regressions, hosted checks and this owner-PC run.
+Distinct ignored Startup and Reliability cases completed fresh-process reload, preview/no mutation, approval/revision advancement and replay refusal/no mutation. Startup observed complete bounded reads for 17 current-user and four local-machine registrations, retained 21 opaque target rows, produced no attention finding and safely returned `Unsupported` for the selected target inspection. Reliability remained `Limited`/`Partial`: 65 examined, 64 retained, six unknown envelopes and zero unparsed records. Its approved second read advanced the case while history deduplication retained 64 distinct event records. These are not incident or crash counts.
+
+The export decision is to remain fail-closed. `report` and `example-plan` each refused with exit 2 for both live cases. No minimized field-level projection or leakage-test suite was selected, and the partial Reliability result reinforced that omission must remain visible. Controlled source-drift, timeout and cancellation regressions passed; no live drift/cancellation condition was manufactured by changing Windows state. All case files, plans and raw output remained in ignored local paths. No model call, upload, repair, elevation, registry/event-log write, release, deployment or product-source change occurred.
 
 ## Windows reference routes
 
@@ -118,4 +120,4 @@ Reverify relevant APIs at later implementation; these references do not expand a
 
 ## Publication boundary
 
-OFC was integrated into `main` through owner-authorized PR #1 at `a8609aa3fbb46b2e9eb7180345f52db14c651477`; the PR was then read back as merged. This does not authorize a release, deployment or OFC5. The checked foundation preserves product/test source `2848e7fd8c6f48d37559018c3d721283f0c617de`, final-head run `34948312201` for `7f62d3574b3d9bfedda0bbc4626edab385125af0`, and final integration-head run `35057290954` for `a8609aa3fbb46b2e9eb7180345f52db14c651477`. Preserve OED1 history and one task board.
+OFC was integrated into `main` through owner-authorized PR #1 at `a8609aa3fbb46b2e9eb7180345f52db14c651477`; the PR was then read back as merged. OFC5 received separate owner authorization and ran from later `main` baseline `60f78b283d145bb83889158f9c9e7b569dae19f3`; its documentation-only branch has not been published or merged. The checked foundation preserves product/test source `2848e7fd8c6f48d37559018c3d721283f0c617de`, final-head run `34948312201` for `7f62d3574b3d9bfedda0bbc4626edab385125af0`, and final integration-head run `35057290954` for `a8609aa3fbb46b2e9eb7180345f52db14c651477`. Preserve OED1 history and one task board.

@@ -2,40 +2,24 @@
 
 Document ID: `orthonis.doc.current-task`.
 
-## State: OFC5 selected
+## State: idle after OFC5
 
-Owner request, 2026-09-16: execute OFC5 on this Windows PC and stop at the completed or honestly blocked pilot boundary. Source baseline: `60f78b283d145bb83889158f9c9e7b569dae19f3` on merged `main`. Work branch: `codex/ofc5-windows-pilot`. The installed SDK resolves the repository-pinned .NET `10.0.401`. No PC health conclusion is assumed before collection.
+The owner-selected OFC5 Windows pilot is complete at its bounded owner-PC boundary. There is no selected work block. The product source is unchanged from merged `main` baseline `60f78b283d145bb83889158f9c9e7b569dae19f3`; OFC5 selection was recorded in `1df0996a4195cbe57ac5c3685952a8b48822b57c` on `codex/ofc5-windows-pilot`. No release, deployment or `main` merge was performed for OFC5.
 
-```tokenslang-work
-{
-  "profile": "eutonos.tokenslang.work.v1",
-  "work_id": "orthonis.work.ofc5",
-  "goal": "Run and verify the bounded cross-module Windows pilot on the selected owner PC, preserve private local evidence, and decide the live export policy without enabling uploads or model calls.",
-  "status": "selected",
-  "required": [
-    {"scope_id":"orthonis.repo","namespace":"orthonis.native","resource_id":"orthonis.doc.ofc"},
-    {"scope_id":"orthonis.repo","namespace":"orthonis.native","resource_id":"orthonis.doc.architecture"},
-    {"scope_id":"orthonis.repo","namespace":"orthonis.native","resource_id":"orthonis.doc.workflow"},
-    {"scope_id":"orthonis.repo","namespace":"orthonis.native","resource_id":"orthonis.doc.health"},
-    {"scope_id":"orthonis.repo","namespace":"orthonis.native","resource_id":"orthonis.doc.foundation-guide"}
-  ]
-}
-```
+## Completed boundary and evidence
 
-## Scope and acceptance
+The selected host reported Windows 25H2 build `26200.9457`, x64, with the repository-pinned .NET SDK `10.0.401`. `dotnet build Orthonis.slnx --configuration Release` passed with zero warnings and zero errors. The executable harness reported 53 foundation checks, 110 cumulative foundation/OFC3 checks and 68 OFC4 controlled checks passed. The synthetic CLI smoke passed. Native OFC3 and OFC4 smoke lanes passed on this PC without Run/event-log writes, target execution or live artifact upload.
 
-Follow [OFC5](campaigns/OFC_FOUNDATION.md#ofc5-cross-module-windows-pilot-and-privacyexport-decision). Build and run the retained regression lanes first. Use distinct ignored directories `.local/ofc5-startup` and `.local/ofc5-reliability`; do not place their cases, plans or raw output in Git. Exercise both explicit live sources, fresh-process reload/summary, local-plan preview and approved refresh where supported, replay refusal and persistence/history behavior. Record only bounded aggregate statuses and check outcomes in public documentation.
+Two distinct ignored private cases were created. Startup observed complete bounded reads for 17 current-user and four local-machine Run registrations, retained 21 opaque target rows and produced no attention finding. One approved opaque target inspection revalidated the registration and returned `Unsupported` rather than guessing or executing it. Reliability remained honestly `Limited`/`Partial`: it examined 65 records, retained 64, recorded six unknown envelopes and zero unparsed records. A second bounded read advanced the case while cross-query deduplication kept 64 distinct retained event records; these are not incident or crash counts.
 
-Validate source-drift and cancellation protections through the retained controlled regressions and safe live observations available without changing Windows state. Do not create or edit a Run registration, write/clear an event log or manufacture an owner-PC failure merely to trigger a guard. If a live cancellation or drift condition cannot be observed safely and repeatably, record that limitation rather than broadening effects.
+Both local plans previewed with exit 0 and no byte change, then approved with exit 0 and advanced their separate cases from revision 1 to revision 2 with one applied-plan ID each. Replaying either plan was refused with exit 2 and preserved case bytes. Fresh-process reloads preserved both revision-2 cases. Controlled source-drift, timeout and cancellation regressions passed; no Windows state was changed merely to manufacture a live drift or cancellation condition, so an actual owner-PC drift/cancellation event remains unobserved.
 
-Decide whether live export remains blocked or whether a separately scoped minimized projection is justified. The default remains fail-closed: no export implementation is admitted without an explicit field-level projection, preview and leakage tests. Completion requires actual commands/results, owner-PC versus hosted evidence kept distinct, repository checks, and a source-bound closeout with OFC5 removed from active selection.
+## Privacy/export decision
 
-## Exclusions and publication
+Live export remains blocked. `report` and `example-plan` were each refused with exit 2 for both live cases. The pilot exposed incomplete Reliability coverage and local summaries that remain working views rather than reviewed minimized exports; no field-level projection or leakage-test suite was selected. No model/provider call, upload, dump access, raw event message, provider string, registry command, path or live case artifact was published.
 
-CLI-first. No UI, installer work, repair, elevation for collection, registry/event-log writes or clears, target execution, dump access/upload, arbitrary command, model/provider call, paid service, live artifact publication, release, deployment or `main` merge. Preserve stable identities, synthetic/OFC3/OFC4 behavior and one task board. Publication, if warranted after review, is limited to public-safe source/documentation on the OFC5 branch using nonforced operations and exact readback.
+The private case and plan files remain under ignored `.local/` paths on this PC. They are local working evidence, not a health certificate or public handoff. Empty, complete-looking or finding-free bounded observations do not establish PC health.
 
-## Checkpoint and restart
+## Delivery and restart
 
-OFC1-OFC4 remain complete at their recorded boundaries and PR #1 is integrated into `main`. OFC5 is selected but no product build, owner-PC collector execution or private case creation has run in this slice yet. The two live case directories do not yet exist.
-
-Next: build and run controlled verification, then create and exercise the separate Startup and Reliability cases. Stop before any live export implementation unless the evidence first justifies and separately bounds it.
+The OFC5 branch contains documentation-only selection/closeout changes; product code did not change. Before any publication, rerun repository checks, review the public diff for private-data leakage and use a normal nonforced branch/PR flow with exact readback. Any future UI, minimized live export, broader collector, repair, release or deployment is unselected and requires its own scope.
