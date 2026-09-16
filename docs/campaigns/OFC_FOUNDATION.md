@@ -116,4 +116,4 @@ Reverify relevant APIs at later implementation; these references do not expand a
 
 ## Publication boundary
 
-OFC source is published only to `codex/ofc-foundation` and draft PR #1. `main` stays unchanged until explicit integration authority. The containing OFC4 documentation closeout updates this campaign, Current Task, project/architecture/health/guide/NAV facts; its own PR CI must pass before that closeout is treated as checked. It preserves the already-checked product/test source from `2848e7fd8c6f48d37559018c3d721283f0c617de`. Preserve OED1 history and one task board.
+OFC source is tracked through `codex/ofc-foundation` and review PR #1. Integration into `main` needs explicit owner authority and does not authorize a release, deployment or OFC5. The OFC4 documentation closeout `7f62d3574b3d9bfedda0bbc4626edab385125af0` updates this campaign, Current Task, project/architecture/health/guide/NAV facts and passed final-head run `34948312201` (Windows job `104312920996`, Ubuntu job `104312920648`). It preserves the already-checked product/test source from `2848e7fd8c6f48d37559018c3d721283f0c617de`. Preserve OED1 history and one task board.

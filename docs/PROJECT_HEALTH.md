@@ -37,7 +37,7 @@ OFC3 implementation and permission follow-up passed their recorded hosted jobs; 
 
 OFC4 source `2848e7fd8c6f48d37559018c3d721283f0c617de` passed run `34947701494`, Windows job `104310923329` and Ubuntu job `104310923110`. Both passed build, the expanded executable suite, foundation/OFC3/OFC4 smokes, repository consistency and Python regressions. Windows additionally passed the real native Startup and Application adapter reads; Ubuntu checked portable/control paths and unsupported-host refusal. The initial OFC4 parser build failed and was fixed before this successful run; see the campaign record.
 
-The containing documentation closeout receives its own PR run and must not be called checked before its actual result. PR CI may test a generated merge commit; retain the branch SHA and run/job identities rather than calling that a merge into `main`.
+The documentation closeout `7f62d3574b3d9bfedda0bbc4626edab385125af0` passed final-head run `34948312201`: Windows job `104312920996` and Ubuntu job `104312920648` each passed the relevant build, executable, smoke, repository consistency and Python regression lanes; Windows also repeated the real bounded Startup and Application reads. PR CI may test a generated merge commit; retain the branch SHA and run/job identities rather than calling that a merge into `main`.
 
 ## Acceptance limits
 

@@ -4,17 +4,15 @@ Document ID: `orthonis.doc.current-task`.
 
 ## State: idle after OFC4
 
-The owner-selected OFC4 slice is complete at its repository and hosted Windows-runner boundary. There is no selected work block. OFC5 is a suggested next slice, not an active assignment. Keep the CLI-first policy; do not start UI, repairs, live AI/export or owner-PC work automatically.
+The owner-selected OFC4 slice is complete at its repository and hosted Windows-runner boundary. There is no selected work block. The checked foundation is ready for the owner-authorized integration of review PR #1; OFC5 is a suggested next slice, not an active assignment. Keep the CLI-first policy; do not start UI, repairs, live AI/export or owner-PC work automatically.
 
-Repository: `splatter85/Orthonis`. Branch: `codex/ofc-foundation`, draft PR #1. `main` remains `561affc9197ad6e704d074ed4b022448d542c446`; no merge, release or deployment was performed. A connected branch view does not establish the state of an owner's local checkout.
+Repository: `splatter85/Orthonis`. Foundation branch: `codex/ofc-foundation`, review PR #1, final checked head `7f62d3574b3d9bfedda0bbc4626edab385125af0`. No release or deployment was performed. A connected branch view does not establish the state of an owner's local checkout.
 
 ## Completed boundary and evidence
 
 OFC4 was selected on 2026-09-15 from OFC3 closeout `16a881c0a99eeeda4a69eee0ce7c208fc1dd1518`, recorded in `3d944bc0448077e4226d69280639ffb447d4a095`. Initial implementation `e20fd920df45ddb972af6159b402b2b1c87387e0` had two parser compile errors, subsequently fixed. Checked product/test source is `2848e7fd8c6f48d37559018c3d721283f0c617de`.
 
-Run `34947701494` passed Windows job `104310923329` and Ubuntu job `104310923110`: build, retained and new executable regressions, foundation/OFC3/OFC4 smokes, repository consistency and Python regressions. The Windows job also passed real bounded Run and Application event-log reads without event/registry writes or live artifact upload. The authoring container had no .NET SDK; no local C# build or owner-PC acceptance is claimed.
-
-The containing closeout commit changes documentation only and must receive its own successful PR checks before that final head is called checked. [OFC](campaigns/OFC_FOUNDATION.md#ofc4-bounded-windows-reliability-collection) owns the detailed result/history. [OFC4 Reliability](OFC4_RELIABILITY.md) owns the source contract; [Foundation Guide](FOUNDATION_GUIDE.md) and [Project Health](PROJECT_HEALTH.md) own commands and checks.
+Run `34947701494` passed Windows job `104310923329` and Ubuntu job `104310923110` for the checked product/test source: build, retained and new executable regressions, foundation/OFC3/OFC4 smokes, repository consistency and Python regressions. The final documentation head then passed run `34948312201`: Windows job `104312920996` and Ubuntu job `104312920648` repeated those checks; Windows also passed real bounded Run and Application event-log reads without event/registry writes or live artifact upload. The authoring container had no .NET SDK; no local C# build or owner-PC acceptance is claimed. [OFC](campaigns/OFC_FOUNDATION.md#ofc4-bounded-windows-reliability-collection) owns the detailed result/history. [OFC4 Reliability](OFC4_RELIABILITY.md) owns the source contract; [Foundation Guide](FOUNDATION_GUIDE.md) and [Project Health](PROJECT_HEALTH.md) own commands and checks.
 
 ## Current product and constraints
 
