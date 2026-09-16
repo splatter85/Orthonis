@@ -101,7 +101,9 @@ No local C# build is claimed: the authoring container lacked .NET and could not 
 
 ## OFC5: Cross-module Windows pilot and privacy/export decision
 
-Planned only. Dependency: both live adapters. Exercise Startup and Reliability through the CLI on an explicitly selected Windows PC, validate persistence/source drift/local follow-up/cancellation/history, and decide whether live export remains blocked or gains a separately selected minimized projection with preview and leakage tests. No model call or upload is required to verify the protocol. A future UI decision remains separate.
+Selected by the owner on 2026-09-16 from merged `main` baseline `60f78b283d145bb83889158f9c9e7b569dae19f3`, on branch `codex/ofc5-windows-pilot`. The selected host is the owner's Windows PC. Use distinct ignored Startup and Reliability case directories and keep all case files, plans and raw output private. Exercise the retained build/regression lanes, both bounded live adapters, fresh-process persistence, local preview/approval/replay behavior and available cancellation/history/source checks without changing Windows state merely to manufacture a condition.
+
+The export decision remains fail-closed during the pilot. Live `report` and `example-plan` stay blocked unless the observed evidence first justifies a separately scoped minimized field-level projection with preview and leakage tests. No model call or upload is required. UI, repairs, elevation, Windows writes, release, deployment and `main` integration remain outside OFC5. Record only public-safe aggregate outcomes and distinguish controlled regressions, hosted checks and this owner-PC run.
 
 ## Windows reference routes
 
