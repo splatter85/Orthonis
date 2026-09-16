@@ -6,7 +6,7 @@ Document ID: `orthonis.doc.ofc`.
 
 Prove a small modular application with one case/evidence core, built-in diagnostic modules and a controlled manual AI discovery loop, then establish narrow real Windows read-only sources without leaking live evidence through the unrestricted synthetic exporter. The owner approved the campaign on 2026-09-14, later directed CLI-first continuation, and selected OFC4 on 2026-09-15.
 
-Baseline: `splatter85/Orthonis/main` at `561affc9197ad6e704d074ed4b022448d542c446`. Implementation branch: `codex/ofc-foundation`, draft review PR #1. Campaign admission was committed as `36d8e14dbca6e238a5b014700e1ba104ba8fe0b9`. Main remains the initial EUTONOS setup rather than the application foundation. Current Task alone selects live work; this file owns slice definitions/results.
+Baseline: `splatter85/Orthonis/main` at `561affc9197ad6e704d074ed4b022448d542c446`. Implementation proceeded on `codex/ofc-foundation`; review PR #1 was integrated into `main` at `a8609aa3fbb46b2e9eb7180345f52db14c651477`. Campaign admission was committed as `36d8e14dbca6e238a5b014700e1ba104ba8fe0b9`. Current Task alone selects live work; this file owns slice definitions/results.
 
 OFC1 and OFC2 are complete at their synthetic foundation boundaries. OFC3 and OFC4 are complete at their repository plus hosted `windows-2022` bounded Startup/Application-read boundaries. Owner-PC acceptance, general live-data export, UI and repairs remain uncompleted work. OFC5 remains unselected.
 
@@ -116,4 +116,4 @@ Reverify relevant APIs at later implementation; these references do not expand a
 
 ## Publication boundary
 
-OFC source is tracked through `codex/ofc-foundation` and review PR #1. Integration into `main` needs explicit owner authority and does not authorize a release, deployment or OFC5. The OFC4 documentation closeout `7f62d3574b3d9bfedda0bbc4626edab385125af0` updates this campaign, Current Task, project/architecture/health/guide/NAV facts and passed final-head run `34948312201` (Windows job `104312920996`, Ubuntu job `104312920648`). It preserves the already-checked product/test source from `2848e7fd8c6f48d37559018c3d721283f0c617de`. Preserve OED1 history and one task board.
+OFC was integrated into `main` through owner-authorized PR #1 at `a8609aa3fbb46b2e9eb7180345f52db14c651477`; the PR was then read back as merged. This does not authorize a release, deployment or OFC5. The checked foundation preserves product/test source `2848e7fd8c6f48d37559018c3d721283f0c617de`, final-head run `34948312201` for `7f62d3574b3d9bfedda0bbc4626edab385125af0`, and final integration-head run `35057290954` for `a8609aa3fbb46b2e9eb7180345f52db14c651477`. Preserve OED1 history and one task board.

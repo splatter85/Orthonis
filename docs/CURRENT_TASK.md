@@ -4,9 +4,9 @@ Document ID: `orthonis.doc.current-task`.
 
 ## State: idle after OFC4
 
-The owner-selected OFC4 slice is complete at its repository and hosted Windows-runner boundary. There is no selected work block. The checked foundation is ready for the owner-authorized integration of review PR #1; OFC5 is a suggested next slice, not an active assignment. Keep the CLI-first policy; do not start UI, repairs, live AI/export or owner-PC work automatically.
+The owner-selected OFC4 slice is complete at its repository and hosted Windows-runner boundary. The checked foundation was integrated into `main` through PR #1 at `a8609aa3fbb46b2e9eb7180345f52db14c651477`. There is no selected work block. OFC5 is a suggested next slice, not an active assignment. Keep the CLI-first policy; do not start UI, repairs, live AI/export or owner-PC work automatically.
 
-Repository: `splatter85/Orthonis`. Foundation branch: `codex/ofc-foundation`, review PR #1, final checked head `7f62d3574b3d9bfedda0bbc4626edab385125af0`. No release or deployment was performed. A connected branch view does not establish the state of an owner's local checkout.
+Repository: `splatter85/Orthonis`. Foundation review PR #1 is merged; its final checked head is `a8609aa3fbb46b2e9eb7180345f52db14c651477`. No release or deployment was performed. A connected branch view does not establish the state of an owner's local checkout.
 
 ## Completed boundary and evidence
 

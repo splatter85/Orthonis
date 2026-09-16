@@ -16,7 +16,7 @@ Resolve a branch to an exact commit before a coherent read. Inspect relevant sou
 
 For authorized writes, preserve the selected tree and use an actual expected blob version or nonforced ref update. Bind a multi-file tree to the same inspected parent. Re-read changed remote state and reconcile conflicts instead of attaching old files to a newer parent. Uncertain tool outcomes require readback before retry.
 
-OED1 was authorized on the empty repository's `main`. OFC product implementation is authorized on `codex/ofc-foundation` with review PR #1; it does not authorize automatic merge or live deployment. Later work should use a selected task branch unless the owner chooses otherwise. Respect actual protections and do not change visibility, license, account settings, or upstream EUTONOS as an incidental step.
+OED1 was authorized on the empty repository's `main`. OFC product implementation proceeded on `codex/ofc-foundation` and was integrated through PR #1 at `a8609aa3fbb46b2e9eb7180345f52db14c651477`; that integration did not authorize a release or live deployment. Later work should use a selected task branch unless the owner chooses otherwise. Respect actual protections and do not change visibility, license, account settings, or upstream EUTONOS as an incidental step.
 
 ## Application engineering practices
 
