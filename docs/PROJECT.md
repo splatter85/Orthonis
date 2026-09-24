@@ -18,7 +18,7 @@ OFC4 provides a separate opt-in live Windows Reliability source in the same case
 
 Live cases remain private local working data. Default live summaries exclude raw registry commands, paths, provider strings and event payloads. The synthetic `report`/`example-plan` export path is blocked for live cases. The local plan/approval loop requests supported follow-up reads without enabling cloud sharing. Synthetic reports remain available for the manual AI exchange.
 
-There is no desktop UI, repair executor, installer, tested minimized real-data AI exporter or model-provider integration. The code is published on `codex/ofc-foundation` in draft PR #1, not a released or merged application. [Foundation Guide](FOUNDATION_GUIDE.md) owns commands and [OFC](campaigns/OFC_FOUNDATION.md) owns execution evidence and acceptance limits.
+There is no desktop UI, repair executor, installer, tested minimized real-data AI exporter or model-provider integration. The OFC foundation was integrated into `main` through PR #1; that integration was not a release or deployment. [Foundation Guide](FOUNDATION_GUIDE.md) owns commands and [OFC](campaigns/OFC_FOUNDATION.md) owns execution evidence and acceptance limits.
 
 ## Intended product capabilities
 
@@ -39,6 +39,6 @@ Future Codex, API-provider, direct-chat-tool and local-model connections remain 
 
 ## Development direction
 
-Keep the small built-in modular architecture and CLI-first policy described in [Architecture](ARCHITECTURE.md). OFC3 and OFC4 add narrow read-only Windows sources. OFC5, the cross-module Windows pilot and private-data/export decision, remains a future unselected slice, not automatic authority to run on an owner's PC.
+Keep the small built-in modular architecture and CLI-first policy described in [Architecture](ARCHITECTURE.md). OFC3 and OFC4 add narrow read-only Windows sources. OFC5 completed a bounded cross-module pilot on one selected owner PC and retained the blocked live-export policy; this is not comprehensive collector, hardware-health or consumer-Windows acceptance.
 
-Distribution/signing, software licensing, desktop UX, supported consumer Windows versions, live-data export policy and privileged-operation threat modeling remain open decisions.
+Distribution/signing, software licensing, desktop UX, supported consumer Windows versions, any future minimized live-data export and privileged-operation threat modeling remain open decisions.

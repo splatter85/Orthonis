@@ -2,24 +2,41 @@
 
 Document ID: `orthonis.doc.current-task`.
 
-## State: idle after OFC4
+## State: OFC5 publication selected
 
-The owner-selected OFC4 slice is complete at its repository and hosted Windows-runner boundary. The checked foundation was integrated into `main` through PR #1 at `a8609aa3fbb46b2e9eb7180345f52db14c651477`. There is no selected work block. OFC5 is a suggested next slice, not an active assignment. Keep the CLI-first policy; do not start UI, repairs, live AI/export or owner-PC work automatically.
+Owner direction on 2026-09-24 selected the proposed OFC5 publication sequence, followed by a separately recorded EXP-002 evaluation. The clean local `codex/ofc5-windows-pilot` head is `ecbf8483848a95f8b4ccd89a580843bf72a611d9`; after fetch, `origin/main` remains `60f78b283d145bb83889158f9c9e7b569dae19f3` and is an ancestor of the branch. The OFC5 Windows pilot is complete at its bounded owner-PC boundary; product source is unchanged from that merged foundation baseline.
 
-Repository: `splatter85/Orthonis`. Foundation review PR #1 is merged; its final checked head is `a8609aa3fbb46b2e9eb7180345f52db14c651477`. No release or deployment was performed. A connected branch view does not establish the state of an owner's local checkout.
+```tokenslang-work
+{
+  "profile": "eutonos.tokenslang.work.v1",
+  "work_id": "orthonis.work.ofc5-publication",
+  "goal": "Publish the reviewed public-safe OFC5 documentation through a checked pull request and verify the merge into main.",
+  "status": "selected",
+  "required": [
+    {"scope_id":"orthonis.repo","namespace":"orthonis.native","resource_id":"orthonis.doc.workflow"},
+    {"scope_id":"orthonis.repo","namespace":"orthonis.native","resource_id":"orthonis.doc.health"},
+    {"scope_id":"orthonis.repo","namespace":"orthonis.native","resource_id":"orthonis.doc.project"},
+    {"scope_id":"orthonis.repo","namespace":"orthonis.native","resource_id":"orthonis.doc.ofc"}
+  ]
+}
+```
+
+Scope: correct the stale foundation PR status in Project, review the entire OFC5 public diff for private-data leakage, rerun repository checks, then push the branch without force. Open a PR to `main`, verify Windows and Ubuntu CI at its final head, merge with an expected head, and read back the remote result. Completion requires a clean checked tree, actual PR/CI/merge identities, and a compact closeout that removes this selection. No release, deployment, live-case upload, broader collector, UI or repair is in scope. Restart at the branch and remote readback if publication is interrupted.
 
 ## Completed boundary and evidence
 
-OFC4 was selected on 2026-09-15 from OFC3 closeout `16a881c0a99eeeda4a69eee0ce7c208fc1dd1518`, recorded in `3d944bc0448077e4226d69280639ffb447d4a095`. Initial implementation `e20fd920df45ddb972af6159b402b2b1c87387e0` had two parser compile errors, subsequently fixed. Checked product/test source is `2848e7fd8c6f48d37559018c3d721283f0c617de`.
+The selected host reported Windows 25H2 build `26200.9457`, x64, with the repository-pinned .NET SDK `10.0.401`. `dotnet build Orthonis.slnx --configuration Release` passed with zero warnings and zero errors. The executable harness reported 53 foundation checks, 110 cumulative foundation/OFC3 checks and 68 OFC4 controlled checks passed. The synthetic CLI smoke passed. Native OFC3 and OFC4 smoke lanes passed on this PC without Run/event-log writes, target execution or live artifact upload.
 
-Run `34947701494` passed Windows job `104310923329` and Ubuntu job `104310923110` for the checked product/test source: build, retained and new executable regressions, foundation/OFC3/OFC4 smokes, repository consistency and Python regressions. The final documentation head then passed run `34948312201`: Windows job `104312920996` and Ubuntu job `104312920648` repeated those checks; Windows also passed real bounded Run and Application event-log reads without event/registry writes or live artifact upload. The authoring container had no .NET SDK; no local C# build or owner-PC acceptance is claimed. [OFC](campaigns/OFC_FOUNDATION.md#ofc4-bounded-windows-reliability-collection) owns the detailed result/history. [OFC4 Reliability](OFC4_RELIABILITY.md) owns the source contract; [Foundation Guide](FOUNDATION_GUIDE.md) and [Project Health](PROJECT_HEALTH.md) own commands and checks.
+Two distinct ignored private cases were created. Startup observed complete bounded reads for 17 current-user and four local-machine Run registrations, retained 21 opaque target rows and produced no attention finding. One approved opaque target inspection revalidated the registration and returned `Unsupported` rather than guessing or executing it. Reliability remained honestly `Limited`/`Partial`: it examined 65 records, retained 64, recorded six unknown envelopes and zero unparsed records. A second bounded read advanced the case while cross-query deduplication kept 64 distinct retained event records; these are not incident or crash counts.
 
-## Current product and constraints
+Both local plans previewed with exit 0 and no byte change, then approved with exit 0 and advanced their separate cases from revision 1 to revision 2 with one applied-plan ID each. Replaying either plan was refused with exit 2 and preserved case bytes. Fresh-process reloads preserved both revision-2 cases. Controlled source-drift, timeout and cancellation regressions passed; no Windows state was changed merely to manufacture a live drift or cancellation condition, so an actual owner-PC drift/cancellation event remains unobserved.
 
-The CLI supports synthetic reports/manual discovery plans, bounded live Windows Startup, and a separate opt-in live Windows Reliability source in the same case system. Reliability reads only local Application event metadata for a fixed seven-day, 64-record subset, preserves query/occurrence times and history gaps, and deduplicates event records without calling them crash counts. Source drift, unknown/malformed data, limits, errors and permissions remain explicit.
+## Privacy/export decision
 
-Live cases and local plans remain private. `report` and `example-plan` are blocked for both live modes. No System/Security channels, arbitrary query/target, dump access, event-log write/clear, target execution, repair, elevation, model call or upload was added. Synthetic and OFC3 behavior remain covered by the retained checks.
+Live export remains blocked. `report` and `example-plan` were each refused with exit 2 for both live cases. The pilot exposed incomplete Reliability coverage and local summaries that remain working views rather than reviewed minimized exports; no field-level projection or leakage-test suite was selected. No model/provider call, upload, dump access, raw event message, provider string, registry command, path or live case artifact was published.
 
-## Suggested continuation, not selected
+The private case and plan files remain under ignored `.local/` paths on this PC. They are local working evidence, not a health certificate or public handoff. Empty, complete-looking or finding-free bounded observations do not establish PC health.
 
-A future explicit OFC5 request can select a Windows PC for cross-module persistence/source-drift/cancellation/history checks and the live export policy decision. Start from the latest verified branch head, inspect the local checkout's dirty state and preserve concurrent work. Keep Startup and Reliability in distinct local case directories and do not upload those cases. Do not infer owner-PC health or acceptance from hosted CI.
+## Delivery and restart
+
+The OFC5 branch contains documentation-only selection/closeout changes; product code did not change. Before any publication, rerun repository checks, review the public diff for private-data leakage and use a normal nonforced branch/PR flow with exact readback. Any future UI, minimized live export, broader collector, repair, release or deployment is unselected and requires its own scope.

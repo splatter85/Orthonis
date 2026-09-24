@@ -97,4 +97,4 @@ Inputs are bounded and strict, but a digest/source label is not authentication. 
 
 ## Continuation boundary
 
-[Current Task](CURRENT_TASK.md) alone selects work. OFC5 combined owner-PC/private-data validation remains planned, not automatically authorized by either live adapter. Hosted Windows checks are not owner-PC acceptance. Keep the CLI-first policy until a later explicit UI decision.
+[Current Task](CURRENT_TASK.md) alone selects work. OFC5 completed one explicitly selected owner-PC pilot while keeping live export blocked; its private case files are not a transferable acceptance artifact. Hosted checks and that one pilot do not establish consumer-Windows coverage or PC health. Keep the CLI-first policy until a later explicit UI decision.

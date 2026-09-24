@@ -12,7 +12,7 @@ Neither live path is comprehensive. Startup never executes, disables or deletes 
 
 Live case data stays local: the ordinary synthetic report/example exporter rejects live cases, while local summaries expose bounded outcomes and opaque IDs instead of registry commands, paths, provider strings or raw event payloads. There is no desktop UI, installer, repair executor, live AI connection or general real-data exporter.
 
-The checked OFC foundation was integrated into `main` through PR #1 at `a8609aa3fbb46b2e9eb7180345f52db14c651477`. This is not a release or deployment, and OFC5 remains unselected. The [foundation campaign](docs/campaigns/OFC_FOUNDATION.md) records exact slice/test evidence and the [foundation guide](docs/FOUNDATION_GUIDE.md) owns commands and privacy limits.
+The checked OFC foundation was integrated into `main` through PR #1 at `a8609aa3fbb46b2e9eb7180345f52db14c651477`. OFC5 later completed one bounded owner-PC pilot of the existing read-only Startup and Reliability paths; it did not establish PC health or consumer acceptance. Live export remains blocked, and no release or deployment was performed. The [foundation campaign](docs/campaigns/OFC_FOUNDATION.md) records exact slice/test evidence and the [foundation guide](docs/FOUNDATION_GUIDE.md) owns commands and privacy limits.
 
 ## Build and verify
 
