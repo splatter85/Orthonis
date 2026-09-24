@@ -18,7 +18,7 @@ OFC4 provides a separate opt-in live Windows Reliability source in the same case
 
 Live cases remain private local working data. Default live summaries exclude raw registry commands, paths, provider strings and event payloads. The synthetic `report`/`example-plan` export path is blocked for live cases. The local plan/approval loop requests supported follow-up reads without enabling cloud sharing. Synthetic reports remain available for the manual AI exchange.
 
-There is no desktop UI, repair executor, installer, tested minimized real-data AI exporter or model-provider integration. The code is published on `codex/ofc-foundation` in draft PR #1, not a released or merged application. [Foundation Guide](FOUNDATION_GUIDE.md) owns commands and [OFC](campaigns/OFC_FOUNDATION.md) owns execution evidence and acceptance limits.
+There is no desktop UI, repair executor, installer, tested minimized real-data AI exporter or model-provider integration. The OFC foundation was integrated into `main` through PR #1; that integration was not a release or deployment. [Foundation Guide](FOUNDATION_GUIDE.md) owns commands and [OFC](campaigns/OFC_FOUNDATION.md) owns execution evidence and acceptance limits.
 
 ## Intended product capabilities
 

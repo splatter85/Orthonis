@@ -2,9 +2,26 @@
 
 Document ID: `orthonis.doc.current-task`.
 
-## State: idle after OFC5
+## State: OFC5 publication selected
 
-The owner-selected OFC5 Windows pilot is complete at its bounded owner-PC boundary. There is no selected work block. The product source is unchanged from merged `main` baseline `60f78b283d145bb83889158f9c9e7b569dae19f3`; OFC5 selection was recorded in `1df0996a4195cbe57ac5c3685952a8b48822b57c` on `codex/ofc5-windows-pilot`. No release, deployment or `main` merge was performed for OFC5.
+Owner direction on 2026-09-24 selected the proposed OFC5 publication sequence, followed by a separately recorded EXP-002 evaluation. The clean local `codex/ofc5-windows-pilot` head is `ecbf8483848a95f8b4ccd89a580843bf72a611d9`; after fetch, `origin/main` remains `60f78b283d145bb83889158f9c9e7b569dae19f3` and is an ancestor of the branch. The OFC5 Windows pilot is complete at its bounded owner-PC boundary; product source is unchanged from that merged foundation baseline.
+
+```tokenslang-work
+{
+  "profile": "eutonos.tokenslang.work.v1",
+  "work_id": "orthonis.work.ofc5-publication",
+  "goal": "Publish the reviewed public-safe OFC5 documentation through a checked pull request and verify the merge into main.",
+  "status": "selected",
+  "required": [
+    {"scope_id":"orthonis.repo","namespace":"orthonis.native","resource_id":"orthonis.doc.workflow"},
+    {"scope_id":"orthonis.repo","namespace":"orthonis.native","resource_id":"orthonis.doc.health"},
+    {"scope_id":"orthonis.repo","namespace":"orthonis.native","resource_id":"orthonis.doc.project"},
+    {"scope_id":"orthonis.repo","namespace":"orthonis.native","resource_id":"orthonis.doc.ofc"}
+  ]
+}
+```
+
+Scope: correct the stale foundation PR status in Project, review the entire OFC5 public diff for private-data leakage, rerun repository checks, then push the branch without force. Open a PR to `main`, verify Windows and Ubuntu CI at its final head, merge with an expected head, and read back the remote result. Completion requires a clean checked tree, actual PR/CI/merge identities, and a compact closeout that removes this selection. No release, deployment, live-case upload, broader collector, UI or repair is in scope. Restart at the branch and remote readback if publication is interrupted.
 
 ## Completed boundary and evidence
 
